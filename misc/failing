@@ -10,28 +10,32 @@ shift
 
 TEST="ping -q -c 2 $TARGET"
 
+clear
+
 if $TEST > /dev/null 2>&1 ; then
-    echo Initial state pass.
+    echo `date` Initial state pass.
 fi
 
 then_time=`date +%s`
 
 while true; do
+    echo
+
     while $TEST > /dev/null 2>&1 ; do
-        sleep 10
+        sleep 1
     done
     
     now_time=`date +%s`
-    echo Failing ping $TARGET after $((now_time - then_time))s
+    echo `date` FAILING ping $TARGET after $((now_time - then_time))s
     then_time=$now_time
     sleep 1
     
     while ! $TEST > /dev/null 2>&1 ; do
-        sleep 10
+        sleep 1
     done
 
     now_time=`date +%s`
-    echo Passing ping $TARGET after $((now_time - then_time))s
+    echo `date` Passing ping $TARGET after $((now_time - then_time))s
     then_time=$now_time
     
     sleep 1
