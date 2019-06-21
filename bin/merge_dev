@@ -1,9 +1,11 @@
 #!/bin/bash -e
 
+# List of branches that should be merged in to create the dev base.
+# These all must root from the same version of faucet as -release.
+MERGES="pcpbug lldpfailover failhack"
+
 ROOT=$(dirname $0)/..
 cd $ROOT
-
-MERGES="pcpbug lldpfailover lldp_src failhack"
 
 if [ -z "$1" ]; then
     echo $0 [base]
