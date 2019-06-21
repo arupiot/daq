@@ -1,0 +1,47 @@
+#!/bin/bash -e
+
+ROOT=$(dirname $0)/..
+cd $ROOT
+
+MERGES="pcpbug lldpfailover lldp_src failhack"
+
+if [ -z "$1" ]; then
+    echo $0 [base]
+    false
+fi
+
+base=$1
+shift
+
+cd faucet
+echo Working in $PWD
+
+changes=`git status --porcelain`
+
+if [ -n "$changes" ]; then
+    echo Local changes found
+    echo $changes
+    false
+fi
+
+echo Fetching remote updates...
+
+faucet_base=`git merge-base origin/master origin/$base-release`
+
+git checkout $base-devtest
+git reset --hard origin/$base-release
+
+for branch in $MERGES; do
+    branch_base=`git merge-base origin/$branch origin/$base-release`
+    if [ "$branch_base" != "$faucet_base" ]; then
+        echo Merge base for branch $branch does not match $base-release.
+        echo Likely this means $branch has merged in a later version of faucet.
+        echo Please clean this up before proceeding.
+        false
+    fi
+    echo Merge origin/$branch
+    git merge origin/$branch
+done
+
+echo Done with construction of $base-devtest
+git status
