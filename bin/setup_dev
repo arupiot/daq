@@ -16,23 +16,9 @@ FAUCETV=$(cat misc/FAUCET_VERSION)
 MININET=https://github.com/mininet/mininet
 MININETV=2.3.0d3
 
-if [ -n "$DAQ_FAUCET_AUTODETECT" ]; then
-    DBRANCH=`git rev-parse --abbrev-ref --symbolic-full-name @{u} || true`
-    echo Working with remote reference $DBRANCH
-    DORIGIN=${DBRANCH%/*}
-    if [ -z "$DORIGIN" ]; then
-        echo Origin is undefined, assuming \'origin\'
-        DORIGIN=origin
-    fi
-    DURL=`git remote get-url $DORIGIN || true`
-    DREPO=${DURL%/*}
-    if [ -z "$DREPO" ]; then
-        echo No git repo, ignoring faucet install.
-        FAUCETV=
-    else
-        echo Using extracted repo base $DREPO
-    fi
-    FAUCETR=${DREPO}/${FAUCETP}
+if [ -f .daq.local ]; then
+    echo Loading config from .daq.local
+    source .daq.local
 fi
 
 if [ -z "$AG" ]; then
