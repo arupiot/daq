@@ -1,6 +1,5 @@
 dps:
   us-mtv-900-t1sw2-0-1:
-    combinatorial_port_flood: true
     dp_id: 147058200621
     faucet_dp_mac: 0e:00:00:00:01:01
     hardware: GenericTFM
@@ -24,7 +23,6 @@ dps:
         receive_lldp: true
     lldp_beacon: {max_per_interval: 5, send_interval: 5}
   us-mtv-900-t1sw2-0-2:
-    combinatorial_port_flood: true
     dp_id: 147058200561
     faucet_dp_mac: 0e:00:00:00:01:02
     hardware: GenericTFM
@@ -48,7 +46,6 @@ dps:
         receive_lldp: true
     lldp_beacon: {max_per_interval: 5, send_interval: 5}
   us-mtv-900-t2sw2-0-1:
-    combinatorial_port_flood: true
     dp_id: 246406200719452
     faucet_dp_mac: 0e:00:00:00:02:01
     hardware: Allied-Telesis
@@ -68,7 +65,6 @@ dps:
         receive_lldp: true
     lldp_beacon: {max_per_interval: 5, send_interval: 5}
   us-mtv-900-t2sw2-0-2:
-    combinatorial_port_flood: true
     dp_id: 246406200719346
     faucet_dp_mac: 0e:00:00:00:02:02
     hardware: Allied-Telesis
