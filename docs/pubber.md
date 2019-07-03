@@ -108,8 +108,8 @@ We're working on this...
 
 Take note the URL in your browser's address bar when running Travis. You might be on either:
 
-- travis-ci **.com**
-- travis-ci **.org**
+- travis-ci **.com** (this is where the **"build"** step happens)
+- travis-ci **.org** (this is where the **"ci"** step happens)
 
 There seem to be multiple places to add environment variables depending on which TLD you find yourself in. For personal Github accounts, there seems to be both **.com** _and_ **.org** addresses. For organizational Github accounts, only **.org** seems to be available.
 
