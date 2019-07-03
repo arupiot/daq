@@ -42,11 +42,7 @@ class GcpManager:
         LOGGER.info('Loading gcp credentials from %s', cred_file)
         # Normal execution assumes default credentials.
         # pylint: disable=protected-access
-        f = open(cred_file, 'r')
-        print(f.read())
         (self._credentials, self._project) = google_auth._load_credentials_from_file(cred_file)
-        print(str(self._credentials))
-        print(str(self._project))
         self._client_name = self._parse_creds(cred_file)
         self._pubber = pubsub_v1.PublisherClient(credentials=self._credentials)
         LOGGER.info('Initialized gcp pub/sub %s:%s', self._project, self._client_name)

@@ -77,17 +77,20 @@ Sharing credentials is a bad idea!
 
 ### GCP
 
+TODO: add set up instructions for devices, since registrar isn't run during the aux test
+TODO: Need devices: AHU-1. AHU-22. GAT-123, SNS-4, add public keys to them - test!
+
 If you're running cloud tests using pubber, Travis will need to be able to connect to your GCP account via the service account you've set up.  
 
 You'll need to add another environment variable to Travis for this to work: 
 
 - GCP_SERVICE_ACCOUNT
 
-This variable is an _fully escaped_ string of your GCP account credentials file linked to the service account. If you've set everything up correctly, it should be in you `local/` folder.
+This variable is an string of your GCP account credentials file linked to the service account **with all spaces removed surrounded by single quotes**. If you've set everything up correctly, the json file you downloaded when you created the service account should be in your `local/` directory.
 
 There are infinite ways to stringify JSON Use something like https://www.freeformatter.com/json-escape.html to convert your json object to a string, write a script to do it yourself, or use JSON.stringify in your browser JavaScript console.
 
-Your fully escaped JSON string, that you will need to put into Travis will look something like the below. Remember to *enclose the entire thing with single quotes to*
+Your new JSON string will look something like the below. Remember to *enclose the entire thing with single quotes*
 
 ```
 '{"type":"service_account","project_id":"<here be a project id>","private_key_id":"<here be a private key>","private_key":"-----BEGINPRIVATEKEY-----\n<here be a key>\n-----ENDPRIVATEKEY-----\n","client_email":"<here be a sercret email>","client_id":"<here be a client id>","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url":"<here be another secret>"}'
