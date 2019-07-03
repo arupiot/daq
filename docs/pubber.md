@@ -90,7 +90,7 @@ There are infinite ways to stringify JSON Use something like https://www.freefor
 Your fully escaped JSON string, that you will need to put into Travis will look something like the below. Remember to *enclose the entire thing with double quotes to make it a string*
 
 ```
-"{\r\n  \"type\": \"service_account\",\r\n  \"project_id\": \"arup-bos\",\r\n  \"private_key_id\": \"<here be a private id>\",\r\n  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\<here be a private key>\\n-----END PRIVATE KEY-----\\n\",\r\n  \"client_email\": \"<your service account email appear here>\",\r\n  \"client_id\": \"106368541294659689051\",\r\n  \"auth_uri\": \"https:\/\/accounts.google.com\/o\/oauth2\/auth\",\r\n  \"token_uri\": \"https:\/\/oauth2.googleapis.com\/token\",\r\n  \"auth_provider_x509_cert_url\": \"https:\/\/www.googleapis.com\/oauth2\/v1\/certs\",\r\n  \"client_x509_cert_url\": \"<here lies a cert url>"\r\n}\r\n"
+"{\"type\":\"service_account\",\"project_id\":\"<here be a project id>\",\"private_key_id\":\"<here be a private key>\",\"private_key\":\"-----BEGINPRIVATEKEY-----\n<here be a key>\n-----ENDPRIVATEKEY-----\n\",\"client_email\":\"<here be a sercret email>\",\"client_id\":\"106368541294659689051\",\"auth_uri\":\"https://accounts.google.com/o/oauth2/auth\",\"token_uri\":\"https://oauth2.googleapis.com/token\",\"auth_provider_x509_cert_url\":\"https://www.googleapis.com/oauth2/v1/certs\",\"client_x509_cert_url\":\"<here be another secret>\"}"
 ```
 
 #### YOUR TRAVIS BUILD MAY ALWAYS FAIL! Unless...
@@ -100,7 +100,9 @@ Your fully escaped JSON string, that you will need to put into Travis will look 
 see the following for more info:
 
 - https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings
-- https://docs.travis-ci.com/user/pull-requests/#pull-requests-and-security-restrictions  
+- https://docs.travis-ci.com/user/pull-requests/#pull-requests-and-security-restrictions 
+
+We're working on this...
 
 #### Other Travis caveats
 
