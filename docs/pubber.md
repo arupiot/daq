@@ -31,7 +31,7 @@ After generating the key pair, you'll have to upload/associate the `pubber_cert.
 with the device entry in the cloud console as an _RS256_cert_. (This can be done when the device is
 created, or anytime after.)
 
-## Configuraiton
+## Configuration
 
 The `local/pubber.json` file configures the key cloud parameters needed for operation
 (the actual values in the file shold match your GCP setup):
@@ -77,8 +77,8 @@ Sharing credentials is a bad idea!
 
 ### GCP
 
-TODO: add set up instructions for devices, since registrar isn't run during the aux test
-TODO: Need devices: AHU-1. AHU-22. GAT-123, SNS-4, add public keys to them - test!
+TODO: add set up instructions for devices, since registrar isn't run during the aux test  
+TODO: Need devices: AHU-1. AHU-22. GAT-123, SNS-4 
 
 If you're running cloud tests using pubber, Travis will need to be able to connect to your GCP account via the service account you've set up.  
 
