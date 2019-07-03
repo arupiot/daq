@@ -79,13 +79,13 @@ Sharing credentials is a bad idea!
 
 If you're running cloud tests using pubber, Travis will need to be able to connect to your GCP account via the service account you've set up.  
 
-You'll need to add another environment variable to Travis for this to work, see https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings for more info:  
+You'll need to add another environment variable to Travis for this to work: 
 
 - GCP_SERVICE_ACCOUNT
 
 This variable is an _fully escaped_ string of your GCP account credentials file linked to the service account. If you've set everything up correctly, it should be in you `local/` folder.
 
-Use something like https://www.freeformatter.com/json-escape.html to convert your json object to a string, or write a script to do it yourself.
+There are infinite ways to stringify JSON Use something like https://www.freeformatter.com/json-escape.html to convert your json object to a string, write a script to do it yourself, or use JSON.stringify in your browser JavaScript console.
 
 Your fully escaped JSON string, that you will need to put into Travis will look something like the below. Remember to *enclose the entire thing with double quotes to make it a string*
 
@@ -93,8 +93,45 @@ Your fully escaped JSON string, that you will need to put into Travis will look 
 "{\r\n  \"type\": \"service_account\",\r\n  \"project_id\": \"arup-bos\",\r\n  \"private_key_id\": \"<here be a private id>\",\r\n  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\<here be a private key>\\n-----END PRIVATE KEY-----\\n\",\r\n  \"client_email\": \"<your service account email appear here>\",\r\n  \"client_id\": \"106368541294659689051\",\r\n  \"auth_uri\": \"https:\/\/accounts.google.com\/o\/oauth2\/auth\",\r\n  \"token_uri\": \"https:\/\/oauth2.googleapis.com\/token\",\r\n  \"auth_provider_x509_cert_url\": \"https:\/\/www.googleapis.com\/oauth2\/v1\/certs\",\r\n  \"client_x509_cert_url\": \"<here lies a cert url>"\r\n}\r\n"
 ```
 
+#### YOUR TRAVIS BUILD MAY ALWAYS FAIL! Unless...
+
 **Note** that, by default, Travis will not use encrypted environment variables when testing against pull requests from foreign github repositories, even if you've forked from another repository that you have full control of via Github. Travis authorization != Github authorization, even if you sign into Travis using Github! This is at it should be.
 
-There are a few ways to allow Travis to see encrypted environment vars from pull requests, the easiest being setting yet _another_ environment variable:
+see the following for more info:
 
-- TRAVIS_PULL_REQUEST=**false**
+- https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings
+- https://docs.travis-ci.com/user/pull-requests/#pull-requests-and-security-restrictions  
+
+#### Other Travis caveats
+
+Take note the URL in your browser's address bar when running Travis. You might be on either:
+
+- travis-ci **.com**
+- travis-ci **.org**
+
+There seem to be multiple places to add environment variables depending on which TLD you find yourself in. For personal Github accounts, there seems to be both **.com** _and_ **.org** addresses. For organizational Github accounts, only **.org** seems to be available.
+
+
+#### Is my Travis set up correctly?
+
+If Travis is set up correctly, you should see something like:
+
+```
+Setting environment variables from repository settings
+$ export DOCKER_USERNAME=[secure]
+$ export DOCKER_PASSWORD=[secure]
+$ export GCP_SERVICE_ACCOUNT=[secure]
+```
+
+At the start of your Travis test log.
+
+If your test is failing from a PR, you'll see something like in a similar log location:
+
+```
+Encrypted environment variables have been removed for security reasons.
+See https://docs.travis-ci.com/user/pull-requests/#pull-requests-and-security-restrictions
+Setting environment variables from .travis.yml
+$ export DOCKER_STARTUP_TIMEOUT_MS=60000
+$ export DAQ_TEST=aux
+```
+
