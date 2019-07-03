@@ -87,10 +87,10 @@ This variable is an _fully escaped_ string of your GCP account credentials file 
 
 There are infinite ways to stringify JSON Use something like https://www.freeformatter.com/json-escape.html to convert your json object to a string, write a script to do it yourself, or use JSON.stringify in your browser JavaScript console.
 
-Your fully escaped JSON string, that you will need to put into Travis will look something like the below. Remember to *enclose the entire thing with double quotes to make it a string*
+Your fully escaped JSON string, that you will need to put into Travis will look something like the below. Remember to *enclose the entire thing with single quotes to*
 
 ```
-"{\"type\":\"service_account\",\"project_id\":\"<here be a project id>\",\"private_key_id\":\"<here be a private key>\",\"private_key\":\"-----BEGINPRIVATEKEY-----\n<here be a key>\n-----ENDPRIVATEKEY-----\n\",\"client_email\":\"<here be a sercret email>\",\"client_id\":\"106368541294659689051\",\"auth_uri\":\"https://accounts.google.com/o/oauth2/auth\",\"token_uri\":\"https://oauth2.googleapis.com/token\",\"auth_provider_x509_cert_url\":\"https://www.googleapis.com/oauth2/v1/certs\",\"client_x509_cert_url\":\"<here be another secret>\"}"
+'{"type":"service_account","project_id":"<here be a project id>","private_key_id":"<here be a private key>","private_key":"-----BEGINPRIVATEKEY-----\n<here be a key>\n-----ENDPRIVATEKEY-----\n","client_email":"<here be a sercret email>","client_id":"<here be a client id>","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url":"<here be another secret>"}'
 ```
 
 #### YOUR TRAVIS BUILD MAY ALWAYS FAIL! Unless...
@@ -110,6 +110,9 @@ Take note the URL in your browser's address bar when running Travis. You might b
 
 - travis-ci **.com** (this is where the **"build"** step happens)
 - travis-ci **.org** (this is where the **"ci"** step happens)
+
+<img width="800" alt="Screenshot 2019-07-03 at 19 26 42" src="https://user-images.githubusercontent.com/5684825/60616075-962c0c80-9dc8-11e9-9e99-2b649dc23661.png">
+
 
 There seem to be multiple places to add environment variables depending on which TLD you find yourself in. For personal Github accounts, there seems to be both **.com** _and_ **.org** addresses. For organizational Github accounts, only **.org** seems to be available.
 
