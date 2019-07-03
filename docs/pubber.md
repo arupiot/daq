@@ -61,3 +61,40 @@ The `local/pubber.json` file configures the key cloud parameters needed for oper
 [pool-1-thread-1] INFO daq.pubber.Pubber - Sending test message for sensor_hub/GAT-001
 [pool-1-thread-1] INFO daq.pubber.Pubber - Sending test message for sensor_hub/GAT-001
 </pre>
+
+## Travis CI configuration
+
+### Docker
+
+You will need the following environment variables to allow Travis to successfully pull docker images from docker hub:  
+
+- DOCKER_USERNAME   
+- DOCKER_PASSWORD  
+
+It's worth signing up to your own (free) docker hub account at https://hub.docker.com/  
+
+Sharing credentials is a bad idea!
+
+### GCP
+
+If you're running cloud tests using pubber, Travis will need to be able to connect to your GCP account via the service account you've set up.  
+
+You'll need to add another environment variable to Travis for this to work, see https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings for more info:  
+
+- GCP_SERVICE_ACCOUNT
+
+This variable is an _fully escaped_ string of your GCP account credentials file linked to the service account. If you've set everything up correctly, it should be in you `local/` folder.
+
+Use something like https://www.freeformatter.com/json-escape.html to convert your json object to a string, or write a script to do it yourself.
+
+Your fully escaped JSON string, that you will need to put into Travis will look something like the below. Remember to *enclose the entire thing with double quotes to make it a string*
+
+```
+"{\r\n  \"type\": \"service_account\",\r\n  \"project_id\": \"arup-bos\",\r\n  \"private_key_id\": \"<here be a private id>\",\r\n  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\<here be a private key>\\n-----END PRIVATE KEY-----\\n\",\r\n  \"client_email\": \"<your service account email appear here>\",\r\n  \"client_id\": \"106368541294659689051\",\r\n  \"auth_uri\": \"https:\/\/accounts.google.com\/o\/oauth2\/auth\",\r\n  \"token_uri\": \"https:\/\/oauth2.googleapis.com\/token\",\r\n  \"auth_provider_x509_cert_url\": \"https:\/\/www.googleapis.com\/oauth2\/v1\/certs\",\r\n  \"client_x509_cert_url\": \"<here lies a cert url>"\r\n}\r\n"
+```
+
+**Note** that, by default, Travis will not use encrypted environment variables when testing against pull requests from foreign github repositories, even if you've forked from another repository that you have full control of via Github. Travis authorization != Github authorization, even if you sign into Travis using Github! This is at it should be.
+
+There are a few ways to allow Travis to see encrypted environment vars from pull requests, the easiest being setting yet _another_ environment variable:
+
+- TRAVIS_PULL_REQUEST=**false**
