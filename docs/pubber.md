@@ -98,7 +98,7 @@ Your new JSON string will look something like the below. Remember to *enclose th
 
 #### YOUR TRAVIS BUILD MAY ALWAYS FAIL! Unless...
 
-**Note** that, by default, Travis will not use encrypted environment variables when testing against pull requests from foreign github repositories, even if you've forked from another repository that you have full control of via Github. Travis authorization != Github authorization, even if you sign into Travis using Github! This is at it should be.
+**Note** that, by default, Travis will not use encrypted environment variables when testing against pull requests from foreign github repositories, even if you've forked from another repository that you have full control of via Github. Travis authorization != Github authorization, even if you sign into Travis using Github! This is as it should be.
 
 see the following for more info:
 
