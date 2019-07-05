@@ -50,9 +50,12 @@ echo Adding your username to the docker group...
 
 user=$(whoami)
 
+echo "Current user: $user"
+
 if [ user != 'root' ];then
     sudo groupadd docker || true
     sudo usermod -aG docker $USER
 fi
 
-echo Logout and log back in to run daq without sudo!
+echo Logout and log back in to run tutorials without sudo!
+printf '%d\n' $?
