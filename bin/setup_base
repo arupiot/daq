@@ -56,7 +56,7 @@ lsb_release -d | grep Ubuntu
 if [ user != 'root' ] && [ $? -eq 0 ] ;then
     echo Adding your username to the docker group...
     sudo groupadd docker || true
-    sudo usermod -aG docker $USER
+    sudo usermod -aG docker $user
 fi
 
 echo Logout and log back in to run tutorials without sudo!
