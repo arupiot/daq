@@ -26,6 +26,9 @@ Your Pub/Sub config should look something like:
 
 <img width="500" alt="Screenshot 2019-07-05 at 12 48 32" src="https://user-images.githubusercontent.com/5684825/60720675-6ba29680-9f23-11e9-814f-25c39f11b3c1.png">
 
+### IoT Core Registry Set up
+
+`events` must be set as the default telemetry topic for the validator to work correctly
 
 ## Key Generation
 
