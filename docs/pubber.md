@@ -82,17 +82,6 @@ The `local/pubber.json` file configures the key cloud parameters needed for oper
 
 ## Travis CI configuration
 
-### Docker
-
-You will need the following environment variables to allow Travis to successfully pull docker images from docker hub:  
-
-- DOCKER_USERNAME   
-- DOCKER_PASSWORD  
-
-It's worth signing up to your own (free) docker hub account at https://hub.docker.com/  
-
-Sharing credentials is a bad idea!
-
 ### GCP
 
 TODO: add set up instructions for devices, since registrar isn't run during the aux test  
