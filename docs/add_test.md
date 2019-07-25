@@ -118,8 +118,8 @@ However, with great flexibility comes great responsibility. Tests should:
 
 Integration tests don't need to be tedious and, if you're developing one test and seeing a consistent failure on Travis CI, isolate your problem and run _just that part_ of the integration test both locally and on Travis CI.
 
-The pass/fail state of an integration test is a diff with an expected device report output. You can follow the steps in ---doc to the steps Ketan wrote - currently on open PR #3--- to mimic the exact process that Travis CI follows. Or, if your local machine builds Docker images slowly, simply modify the test_*.out by hand, amending it to what your report should look like.
+The pass/fail state of an integration test corresponds to the result of a `diff` between expected and actual device report output. You can follow the steps in ---doc to the steps 1-6 Ketan wrote - currently on open PR #3--- to mimic the exact process that Travis CI follows. Or, if your local machine builds Docker images slowly, simply modify the test_*.out by hand, amending it to what your report should look like. Then, see if Travis says yes or no.
 
-Similarly, if you're writing one test and testing it within DAQ locally, run _only the test you're developing_. Try not to bloat your precious development hours by waiting for tests to run that you don't care about.
+Similarly, if you're writing one test and running it within DAQ locally, run _only the test you're developing_. Try not to bloat your precious development hours by waiting for tests to run that you don't care about.
 
 TODO: write note about hold_tests 
