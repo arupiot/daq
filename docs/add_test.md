@@ -105,6 +105,21 @@ different places that are dynamically mapped in to the system at runtime:
   * See `misc/test_site/mac_addrs/9a02571e8f01/module_config.json` as an example of specifying device type.
   * See `misc/test_site/device_types/rocket/` for an example device type.
 
-## Test Development
+## Test Development Philosophy
 
-TODO: write note about hold_tests and test development
+DAQ is an extensible framework for running arbitrary tests. Because tests are run inside Docker containers, the language or environment you choose to write device tests is unimportant. If it will run in Docker, DAQ can run it!
+
+However, with great flexibility comes great responsibility. Tests should:
+
+- Test _one_ thing well
+- Include an integration test for Travis
+- Adhere to the Google style guide of your chosen language: https://google.github.io/styleguide/
+- Have the smallest amount of code possible for the greatest utility for the framework. Keep docker images lean!
+
+Integration tests don't need to be tedious and, if you're developing one test and seeing a consistent failure on Travis CI, isolate your problem and run _just that part_ of the integration test both locally and on Travis CI.
+
+The pass/fail state of an integration test is a diff with an expected device report output. You can follow the steps in ---doc to the steps Ketan wrote--- to mimic the exact process that Travis CI follows. Or, if your local machine builds Docker images slowly, simply modify the test_*.out by hand, amending it to what your report should look like.
+
+Similarly, if you're writing one test and testing it within DAQ locally, run _only the test you're developing_. Try not to bloat your precious development hours by waiting for tests to run that you don't care about.
+
+TODO: write note about hold_tests 
