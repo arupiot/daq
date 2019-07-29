@@ -15,7 +15,7 @@ public class PicsTest {
   private String testName = "protocol.bacnet.pic";
   private String passedTestReport = String.format("RESULT pass %s\n", testName);
   private String failedTestReport = String.format("RESULT fail %s\n", testName);
-  private String skippedTestReport = String.format("RESULT skip %s\n", testName);
+  private String skippedTestReport = String.format("RESULT skip %s", testName);
   private String reportAppendix = "";
   private String additionalReportAppendix = "";
   private Csv csv;
@@ -45,7 +45,7 @@ public class PicsTest {
       if (bacnetSupported) {
         performPicsChecks();
       } else {
-        reportAppendix += "Bacnet device not found... Pics check cannot be performed.\n";
+        reportAppendix += " Bacnet device not found... Pics check cannot be performed.\n";
         System.out.println(reportAppendix);
         generateReport();
       }

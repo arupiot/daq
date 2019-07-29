@@ -221,6 +221,8 @@ public class Binary {
                 encodable = new BinaryPV(feedbackValue);
                 device.addProperty(bacnetObjectType, PropertyIdentifier.feedbackValue, encodable);
                 break;
+            default:
+                throw new IllegalArgumentException(objectProperty + " not found.");
         }
     }
 }

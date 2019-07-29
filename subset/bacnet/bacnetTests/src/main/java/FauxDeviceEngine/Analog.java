@@ -215,7 +215,7 @@ public class Analog {
                 break;
 
                 default:
-                System.out.println(objectProperty + " not found.");
+                throw new IllegalArgumentException(objectProperty + " not found.");
         }
     }
 }
