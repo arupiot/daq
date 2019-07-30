@@ -14,7 +14,6 @@ public class FileManager {
         try{
         File[] listFiles = new File(csvFolder).listFiles();
         for (int i = 0; i < listFiles.length; i++) {
-//            System.out.println(listFiles[i].getName());
             if (listFiles[i].isFile()) {
                 String fileName = listFiles[i].getName();
                 if (fileName.contains(csvName)

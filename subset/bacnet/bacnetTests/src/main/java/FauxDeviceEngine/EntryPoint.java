@@ -24,6 +24,7 @@ public class EntryPoint {
     private static IpNetwork network;
     private static LocalDevice localDevice;
     private static String fauxDeviceJSONFilename = "";
+    private static int timeout = 1000;
 
     public static void main(String[] args) {
         if (args.length != 3) {
@@ -37,7 +38,7 @@ public class EntryPoint {
         network = new IpNetwork(broadcastIpAddr, port,
                 IpNetwork.DEFAULT_BIND_IP, 0, localIpAddr);
         Transport transport = new Transport(network);
-        transport.setTimeout(1000);
+        transport.setTimeout(timeout);
 
         try {
             JSONArray bacnetObjectArray = readJSONFile();

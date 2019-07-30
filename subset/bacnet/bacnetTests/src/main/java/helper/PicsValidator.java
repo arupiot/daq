@@ -97,8 +97,7 @@ public class PicsValidator {
   public Multimap<String, String> getResultMap() {
     return result;
   }
-
-  public boolean getRestult() {
+  public boolean getResult() {
     return this.testPassed;
   }
 }

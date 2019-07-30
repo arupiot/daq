@@ -30,15 +30,19 @@ public class Csv {
     try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
       while ((line = br.readLine()) != null) {
         String[] value = line.split(csvSplitBy);
-        if (!value[0].equals(csvColumnTitle[0])
-            && !value[1].equals(csvColumnTitle[1])
-            && !value[3].equals(csvColumnTitle[2])
-            && !value[4].equals(csvColumnTitle[3])) {
+        final String objectType = value[0];
+        final String objectProperty = value[1];
+        final String conformanceCode = value[3];
+        final String supported = value[4];
+        if (!objectType.equals(csvColumnTitle[0])
+            && !objectProperty.equals(csvColumnTitle[1])
+            && !conformanceCode.equals(csvColumnTitle[2])
+            && !supported.equals(csvColumnTitle[3])) {
           saveValuesToMap(value);
           validateLine(value[0], value[1], value[3], value[4], bacnetPointsMap);
         }
       }
-      setTestResult(picsValidator.getRestult());
+      setTestResult(picsValidator.getResult());
     } catch (IOException e) {
       String errorMessage = "Csv error: " + e.getMessage();
       System.err.println(errorMessage);
