@@ -90,7 +90,7 @@ public class Csv {
       System.out.println(appendix.getValue());
       appendixText += appendix.getValue() + "\n";
     }
-    return appendixText;
+    return appendixText + "\n";
   }
 
   private void setTestAppendices(String appendix) {

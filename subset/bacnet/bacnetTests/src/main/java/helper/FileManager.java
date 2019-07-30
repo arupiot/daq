@@ -12,20 +12,20 @@ public class FileManager {
     public boolean checkDevicePicCSV() {
         String csvFolder = getCSVPath();
         try{
-        File[] listFiles = new File(csvFolder).listFiles();
-        for (int i = 0; i < listFiles.length; i++) {
-            if (listFiles[i].isFile()) {
-                String fileName = listFiles[i].getName();
-                if (fileName.contains(csvName)
-                        && fileName.endsWith(csvExtension)) {
-                    System.out.println("pics.csv file found.");
-                    setFilePath(fileName);
-                    return true;
+            File[] listFiles = new File(csvFolder).listFiles();
+            for (int i = 0; i < listFiles.length; i++) {
+                if (listFiles[i].isFile()) {
+                    String fileName = listFiles[i].getName();
+                    if (fileName.contains(csvName)
+                            && fileName.endsWith(csvExtension)) {
+                        System.out.println("pics.csv file found in /config/type.");
+                        setFilePath(fileName);
+                        return true;
+                    }
                 }
             }
-        }
-        String errorMessage = "Pics.csv not found.\n";
-        System.err.println(errorMessage);
+            String errorMessage = "Pics.csv not found.\n";
+            System.err.println(errorMessage);
         } catch(Exception e) {
             System.out.println("Error in reading " + csvName + csvExtension + " in " + csvFolder);
         }
