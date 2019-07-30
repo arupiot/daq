@@ -104,7 +104,7 @@ different places that are dynamically mapped into the system at runtime:
 * `/config/type`: Device-type customizations from `{site_path}/device_types/{device_type}/aux/`.
   * See `misc/test_site/mac_addrs/9a02571e8f01/module_config.json` as an example of specifying device type.
   * See `misc/test_site/device_types/rocket/` for an example device type.
-  * See `qualification/*` for moore detailed examples of test configuration files.
+  * See `qualification/*` for more detailed examples of test configuration files.
 
 ## Test Development Philosophy
 
