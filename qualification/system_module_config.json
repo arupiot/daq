@@ -19,7 +19,10 @@
       "enabled": true
     },
     "switch": {
-      "enabled": true
+      "enabled": true,
+      "poe": {
+        "enabled" : true
+      }
     },
     "tls": {
       "enabled": true
