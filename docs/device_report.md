@@ -28,7 +28,7 @@
 | Make              | *** Make *** |
 | Model             | *** Model *** |
 | Serial Number     | *** Serial *** |
-| Firmware Version  | *** Firmware Version *** |
+| Firmware Version  | ?\xFF\xFF\x19,>u\x08\x00no |
 
 ## Device Description
 

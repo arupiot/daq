@@ -42,6 +42,9 @@ port-01 module_config modules
   "brute": {
     "enabled": true
   },
+  "discover": {
+    "enabled": true
+  }
   "macoui": {
     "enabled": true
   },
@@ -65,9 +68,6 @@ port-01 module_config modules
   },
   "udmi": {
     "enabled": true
-  },
-  "discover": {
-    "enabled": true
   }
 }
 port-02 module_config modules
@@ -78,6 +78,9 @@ port-02 module_config modules
   "brute": {
     "enabled": true
   },
+  "discover": {
+    "enabled": true
+  }
   "foobar": {
     "enabled": false
   },
@@ -103,9 +106,6 @@ port-02 module_config modules
     "enabled": false
   },
   "udmi": {
-    "enabled": true
-  },
-  "discover": {
     "enabled": true
   }
 }
