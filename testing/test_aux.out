@@ -64,6 +64,9 @@ port-01 module_config modules
   },
   "udmi": {
     "enabled": true
+  },
+  "discover": {
+    "enabled": true
   }
 }
 port-02 module_config modules
@@ -99,6 +102,9 @@ port-02 module_config modules
     "enabled": false
   },
   "udmi": {
+    "enabled": true
+  },
+  "discover": {
     "enabled": true
   }
 }
