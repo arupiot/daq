@@ -97,6 +97,15 @@ No invalid ports found.
 RESULT pass security.ports.nmap
 ```
 
+## Module brute
+
+```
+Username:manager
+Password:friend
+Login success!
+RESULT fail network.brute
+```
+
 ## Module discover
 
 ```
@@ -117,14 +126,6 @@ MAC Address: 9A:02:57:1E:8F:01 (Unknown)
 Firmware test complete
 --------------------
 RESULT skip security.firmware Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered
-
-## Module brute
-
-```
-Username:manager
-Password:friend
-Login success!
-RESULT fail network.brute
 ```
 
 ## Module switch
