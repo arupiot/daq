@@ -24,10 +24,12 @@ public class PicsTest {
   private String broadcastIp = "";
   boolean bacnetSupported = false;
   boolean csvFound = true;
+  String verboseOutput = "";
 
-  public PicsTest(String localIp, String broadcastIp) throws Exception {
+  public PicsTest(String localIp, String broadcastIp, String verboseOutput) throws Exception {
     this.localIp = localIp;
     this.broadcastIp = broadcastIp;
+    this.verboseOutput = verboseOutput;
     discoverDevices();
   }
 
@@ -79,7 +81,7 @@ public class PicsTest {
           Multimap<String, Map<String, String>> bacnetPointsMap, FileManager fileManager) {
     String csvSheet = fileManager.getFilePath();
     csv = new Csv(csvSheet);
-    csv.readAndValidate(bacnetPointsMap);
+    csv.readAndValidate(bacnetPointsMap, verboseOutput);
   }
 
   private void generateReport() {

@@ -26,7 +26,7 @@ public class Csv {
     this.csvFile = csvFile;
   }
 
-  public void readAndValidate(Multimap<String, Map<String, String>> bacnetPointsMap) {
+  public void readAndValidate(Multimap<String, Map<String, String>> bacnetPointsMap, String verboseOutput) {
     try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
       while ((line = br.readLine()) != null) {
         String[] value = line.split(csvSplitBy);
@@ -39,7 +39,7 @@ public class Csv {
             && !conformanceCode.equals(csvColumnTitle[2])
             && !supported.equals(csvColumnTitle[3])) {
           saveValuesToMap(value);
-          validateLine(value[0], value[1], value[3], value[4], bacnetPointsMap);
+          validateLine(value[0], value[1], value[3], value[4], bacnetPointsMap, verboseOutput);
         }
       }
       setTestResult(picsValidator.getResult());
@@ -56,14 +56,15 @@ public class Csv {
       String bacnetObjectProperty,
       String conformanceCode,
       String supported,
-      Multimap bacnetPointsMap) {
+      Multimap bacnetPointsMap,
+      String verboseOutput) {
     try {
       picsValidator.validate(
           formatValue(bacnetObjectType),
           formatValue(bacnetObjectProperty),
           conformanceCode,
           supported,
-          bacnetPointsMap);
+          bacnetPointsMap, verboseOutput);
     } catch (Exception e) {
       System.err.println(
           "Error validating property: "

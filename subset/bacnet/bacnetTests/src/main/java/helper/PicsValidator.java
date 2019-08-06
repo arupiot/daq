@@ -19,28 +19,35 @@ public class PicsValidator {
   private int count = 0;
 
   public void validate(String bacnetObjectType, String bacnetObjectProperty, String conformanceCode,
-                       String supported, Multimap bacnetPointsMap) {
+                       String supported, Multimap bacnetPointsMap, String verboseOutput) {
 
     Set<String> mapKeySet = bacnetPointsMap.keySet();
     ArrayList<String> keys = getMapKeys(mapKeySet, bacnetObjectType);
 
     if (keys.size() == 0 && (conformanceCode.contains(read) || conformanceCode.equals(write))
             && !bacnetObjectProperty.equals("Property List")) {
-      String appendix = String.format(formatProperty, bacnetObjectType, bacnetObjectProperty,
-              conformanceCode, "FAILED");
-      result.put(bacnetObjectType, appendix);
+//      String appendix = String.format(formatProperty, bacnetObjectType, bacnetObjectProperty,
+//              conformanceCode, "FAILED");
+//      result.put(bacnetObjectType, appendix);
+      writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "FAILED", verboseOutput);
       //testPassed = false;
       setResult(false);
     } else if (keys.size() == 0 && conformanceCode.contains(optional)
             && !bacnetObjectProperty.equals("Property List")) {
-      String appendix = String.format(formatProperty, bacnetObjectType, bacnetObjectProperty,
-              conformanceCode, "PASSED/WARNING");
-      result.put(bacnetObjectType, appendix);
+//      if (verboseOutput.equals("true")) {
+//        String appendix = String.format(formatProperty, bacnetObjectType, bacnetObjectProperty,
+//                conformanceCode, "PASSED/WARNING");
+//        result.put(bacnetObjectType, appendix);
+//      }
+      writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "PASSED/WARNING", verboseOutput);
       setResult(true);
     } else if (keys.size() == 0 && bacnetObjectProperty.equals("Property List")) {
-      String appendix = String.format(formatProperty, bacnetObjectType, bacnetObjectProperty,
-              conformanceCode, "PASSED");
-      result.put(bacnetObjectType, appendix);
+//      if (verboseOutput.equals("true")) {
+//        String appendix = String.format(formatProperty, bacnetObjectType, bacnetObjectProperty,
+//                conformanceCode, "PASSED");
+//        result.put(bacnetObjectType, appendix);
+//      }
+      writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "PASSED", verboseOutput);
       setResult(true);
     }
 
@@ -52,24 +59,42 @@ public class PicsValidator {
       if (!bacnetObjectPropertyIsFound
           && (conformanceCode.contains(read) || conformanceCode.equals(write)) && supported.equals(Supported)
           && !bacnetObjectProperty.equals("Property List")) {
-        String appendix = String.format(formatProperty, key, bacnetObjectProperty,
-                conformanceCode, "FAILED");
-        result.put(key, appendix);
+//        String appendix = String.format(formatProperty, key, bacnetObjectProperty,
+//                conformanceCode, "FAILED");
+//        result.put(key, appendix);
         //testPassed = false;
+        writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "FAILED", verboseOutput);
         setResult(false);
       } else if (!bacnetObjectPropertyIsFound && conformanceCode.contains(optional)
           && supported.equals(Supported) && !bacnetObjectProperty.equals("Property List")) {
-        String appendix = String.format(formatProperty, key, bacnetObjectProperty,
-                conformanceCode, "PASSED/WARNING");
-        result.put(key, appendix);
+//        if (verboseOutput.equals("true")) {
+//          String appendix = String.format(formatProperty, key, bacnetObjectProperty,
+//                  conformanceCode, "PASSED/WARNING");
+//          result.put(key, appendix);
+//        }
+        writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "PASSED/WARNING", verboseOutput);
         setResult(true);
       } else if (bacnetObjectPropertyIsFound && supported.equals(Supported)
           && !bacnetObjectProperty.equals("Property List")) {
-        String appendix = String.format(formatProperty, key, bacnetObjectProperty,
-                conformanceCode, "PASSED");
-        result.put(key, appendix);
+//        if (verboseOutput.equals("true")) {
+//          String appendix = String.format(formatProperty, key, bacnetObjectProperty,
+//                  conformanceCode, "PASSED");
+//          result.put(key, appendix);
+//        }
+        writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "PASSED", verboseOutput);
         setResult(true);
       }
+    }
+  }
+
+  private void writeToAppendix(String formatProperty, String key, String bacnetObjectProperty, String conformanceCode,
+                               String lineresult, String verboseOutput) {
+    if (verboseOutput.equals("false") && lineresult.contains("PASSED")) {
+      return;
+    } else {
+      String appendix = String.format(formatProperty, key, bacnetObjectProperty,
+              conformanceCode, lineresult);
+      result.put(key, appendix);
     }
   }
 
