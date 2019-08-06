@@ -15,7 +15,7 @@ public class PicsTest {
   private String testName = "protocol.bacnet.pic";
   private String passedTestReport = String.format("RESULT pass %s\n", testName);
   private String failedTestReport = String.format("RESULT fail %s\n", testName);
-  private String skippedTestReport = String.format("RESULT skip %s", testName);
+  private String skippedTestReport = String.format("RESULT skip %s\n", testName);
   private String reportAppendix = "";
   private String additionalReportAppendix = "";
   private Csv csv;
@@ -24,9 +24,9 @@ public class PicsTest {
   private String broadcastIp = "";
   boolean bacnetSupported = false;
   boolean csvFound = true;
-  String verboseOutput = "";
+  boolean verboseOutput = false;
 
-  public PicsTest(String localIp, String broadcastIp, String verboseOutput) throws Exception {
+  public PicsTest(String localIp, String broadcastIp, boolean verboseOutput) throws Exception {
     this.localIp = localIp;
     this.broadcastIp = broadcastIp;
     this.verboseOutput = verboseOutput;
@@ -63,8 +63,8 @@ public class PicsTest {
         Multimap<String, Map<String, String>> bacnetPointsMap = bacnetPoints.getBacnetPointsMap();
         boolean csvExists = fileManager.checkDevicePicCSV();
         if(!csvExists) {
-          additionalReportAppendix = "Pics.csv not found. \n\n";
-          csvFound = false;
+          additionalReportAppendix = "pics.csv not found. \n\n";
+          this.csvFound = false;
           generateReport();
           return;
         }
@@ -80,16 +80,18 @@ public class PicsTest {
   private void validatePics(
           Multimap<String, Map<String, String>> bacnetPointsMap, FileManager fileManager) {
     String csvSheet = fileManager.getFilePath();
+    System.out.println("csvSheet:" + csvSheet);
     csv = new Csv(csvSheet);
-    csv.readAndValidate(bacnetPointsMap, verboseOutput);
+    csv.readAndValidate(bacnetPointsMap, this.verboseOutput);
   }
 
   private void generateReport() {
     Report report = new Report("tmp/BacnetPICSTestReport.txt");
     Report appendix = new Report("tmp/BacnetPICSTest_APPENDIX.txt");
-    if (bacnetSupported && csvFound) {
+    if (this.bacnetSupported && this.csvFound) {
       boolean testPassed = csv.getTestResult();
       String reportAppendix = csv.getTestAppendices();
+      System.out.println("reportAppendix: "+reportAppendix);
       if (testPassed) {
         report.writeReport(passedTestReport);
       } else {

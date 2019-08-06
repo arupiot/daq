@@ -19,7 +19,7 @@ public class PicsValidator {
   private int count = 0;
 
   public void validate(String bacnetObjectType, String bacnetObjectProperty, String conformanceCode,
-                       String supported, Multimap bacnetPointsMap, String verboseOutput) {
+                       String supported, Multimap bacnetPointsMap, boolean verboseOutput) {
 
     Set<String> mapKeySet = bacnetPointsMap.keySet();
     ArrayList<String> keys = getMapKeys(mapKeySet, bacnetObjectType);
@@ -88,13 +88,15 @@ public class PicsValidator {
   }
 
   private void writeToAppendix(String formatProperty, String key, String bacnetObjectProperty, String conformanceCode,
-                               String lineresult, String verboseOutput) {
-    if (verboseOutput.equals("false") && lineresult.contains("PASSED")) {
-      return;
-    } else {
+                               String lineresult, boolean verboseOutput) {
+    if (!verboseOutput & (lineresult.contains("FAILED") | lineresult.contains("PASSED/WARNING"))) {
       String appendix = String.format(formatProperty, key, bacnetObjectProperty,
               conformanceCode, lineresult);
-      result.put(key, appendix);
+      this.result.put(key, appendix);
+    } else if (verboseOutput) {
+      String appendix = String.format(formatProperty, key, bacnetObjectProperty,
+              conformanceCode, lineresult);
+      this.result.put(key, appendix);
     }
   }
 
@@ -112,16 +114,17 @@ public class PicsValidator {
     if(count == 0) {
       this.testPassed = propertyValidated;
     } else {
-      if(!testPassed) {
+      if(!this.testPassed) {
         return;
-      } else { testPassed = propertyValidated; }
+      } else { this.testPassed = propertyValidated; }
     }
     count++;
   }
 
   public Multimap<String, String> getResultMap() {
-    return result;
+    return this.result;
   }
+
   public boolean getResult() {
     return this.testPassed;
   }

@@ -26,7 +26,7 @@ public class Csv {
     this.csvFile = csvFile;
   }
 
-  public void readAndValidate(Multimap<String, Map<String, String>> bacnetPointsMap, String verboseOutput) {
+  public void readAndValidate(Multimap<String, Map<String, String>> bacnetPointsMap, boolean verboseOutput) {
     try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
       while ((line = br.readLine()) != null) {
         String[] value = line.split(csvSplitBy);
@@ -44,7 +44,7 @@ public class Csv {
       }
       setTestResult(picsValidator.getResult());
     } catch (IOException e) {
-      String errorMessage = "Csv error: " + e.getMessage();
+      String errorMessage = "CSV file error: " + e.getMessage();
       System.err.println(errorMessage);
       setTestResult(false);
       setTestAppendices(errorMessage);
@@ -57,7 +57,7 @@ public class Csv {
       String conformanceCode,
       String supported,
       Multimap bacnetPointsMap,
-      String verboseOutput) {
+      boolean verboseOutput) {
     try {
       picsValidator.validate(
           formatValue(bacnetObjectType),

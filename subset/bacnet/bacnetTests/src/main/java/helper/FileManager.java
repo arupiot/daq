@@ -24,7 +24,7 @@ public class FileManager {
                     }
                 }
             }
-            String errorMessage = "Pics.csv not found.\n";
+            String errorMessage = "pics.csv not found.\n";
             System.err.println(errorMessage);
         } catch(Exception e) {
             System.out.println("Error in reading " + csvName + csvExtension + " in " + csvFolder);
