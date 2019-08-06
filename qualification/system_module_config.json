@@ -61,6 +61,36 @@
       "required": "pass",
       "expected": "Required Pass"
     },
+    "connection.port_link": {
+      "category": "Connection",
+      "required": "pass",
+      "expected": "Required Pass"
+    },
+    "connection.port_speed": {
+      "category": "Connection",
+      "required": "pass",
+      "expected": "Required Pass"
+    },
+    "connection.port_duplex": {
+      "category": "Connection",
+      "required": "pass",
+      "expected": "Required Pass"
+    },
+    "poe.power": {
+      "category": "PoE",
+      "required": "pass",
+      "expected": "Required Pass"
+    },
+    "poe.negotiation": {
+      "category": "PoE",
+      "required": "pass",
+      "expected": "Required Pass"
+    },
+    "poe.support": {
+      "category": "PoE",
+      "required": "pass",
+      "expected": "Required Pass"
+    },
     "network.brute": {
       "category": "Security",
       "required": "pass",
