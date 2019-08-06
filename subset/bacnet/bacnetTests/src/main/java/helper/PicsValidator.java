@@ -26,28 +26,17 @@ public class PicsValidator {
 
     if (keys.size() == 0 && (conformanceCode.contains(read) || conformanceCode.equals(write))
             && !bacnetObjectProperty.equals("Property List")) {
-//      String appendix = String.format(formatProperty, bacnetObjectType, bacnetObjectProperty,
-//              conformanceCode, "FAILED");
-//      result.put(bacnetObjectType, appendix);
-      writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "FAILED", verboseOutput);
-      //testPassed = false;
+      writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode,
+              "FAILED", verboseOutput);
       setResult(false);
     } else if (keys.size() == 0 && conformanceCode.contains(optional)
             && !bacnetObjectProperty.equals("Property List")) {
-//      if (verboseOutput.equals("true")) {
-//        String appendix = String.format(formatProperty, bacnetObjectType, bacnetObjectProperty,
-//                conformanceCode, "PASSED/WARNING");
-//        result.put(bacnetObjectType, appendix);
-//      }
-      writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "PASSED/WARNING", verboseOutput);
+      writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode,
+              "PASSED/WARNING", verboseOutput);
       setResult(true);
     } else if (keys.size() == 0 && bacnetObjectProperty.equals("Property List")) {
-//      if (verboseOutput.equals("true")) {
-//        String appendix = String.format(formatProperty, bacnetObjectType, bacnetObjectProperty,
-//                conformanceCode, "PASSED");
-//        result.put(bacnetObjectType, appendix);
-//      }
-      writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "PASSED", verboseOutput);
+      writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode,
+              "PASSED", verboseOutput);
       setResult(true);
     }
 
@@ -59,29 +48,18 @@ public class PicsValidator {
       if (!bacnetObjectPropertyIsFound
           && (conformanceCode.contains(read) || conformanceCode.equals(write)) && supported.equals(Supported)
           && !bacnetObjectProperty.equals("Property List")) {
-//        String appendix = String.format(formatProperty, key, bacnetObjectProperty,
-//                conformanceCode, "FAILED");
-//        result.put(key, appendix);
-        //testPassed = false;
-        writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "FAILED", verboseOutput);
+        writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode,
+                "FAILED", verboseOutput);
         setResult(false);
       } else if (!bacnetObjectPropertyIsFound && conformanceCode.contains(optional)
           && supported.equals(Supported) && !bacnetObjectProperty.equals("Property List")) {
-//        if (verboseOutput.equals("true")) {
-//          String appendix = String.format(formatProperty, key, bacnetObjectProperty,
-//                  conformanceCode, "PASSED/WARNING");
-//          result.put(key, appendix);
-//        }
-        writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "PASSED/WARNING", verboseOutput);
+        writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode,
+                "PASSED/WARNING", verboseOutput);
         setResult(true);
       } else if (bacnetObjectPropertyIsFound && supported.equals(Supported)
           && !bacnetObjectProperty.equals("Property List")) {
-//        if (verboseOutput.equals("true")) {
-//          String appendix = String.format(formatProperty, key, bacnetObjectProperty,
-//                  conformanceCode, "PASSED");
-//          result.put(key, appendix);
-//        }
-        writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode, "PASSED", verboseOutput);
+        writeToAppendix(formatProperty, bacnetObjectType, bacnetObjectProperty, conformanceCode,
+                "PASSED", verboseOutput);
         setResult(true);
       }
     }
