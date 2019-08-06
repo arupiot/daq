@@ -73,7 +73,10 @@ fi
 more inst/faux/daq-faux-*/local/pubber.json | cat
 
 echo Starting aux test run...
+# Run DAQ in single shot mode
 cmd/run -b -s
+
+# Add just the RESULT lines from all aux tests into a file
 tail -qn 1 inst/run-port-*/nodes/bacext*/tmp/report.txt | tee -a $TEST_RESULTS
 tail -qn 1 inst/run-port-*/nodes/brute*/tmp/report.txt | tee -a $TEST_RESULTS
 tail -qn 1 inst/run-port-*/nodes/macoui*/tmp/report.txt | tee -a $TEST_RESULTS
@@ -84,19 +87,27 @@ dhcp_done=$(fgrep done inst/run-port-01/scans/dhcp_triggers.txt | wc -l)
 dhcp_long=$(fgrep long inst/run-port-01/scans/dhcp_triggers.txt | wc -l)
 echo dhcp requests $dhcp_done $dhcp_long | tee -a $TEST_RESULTS
 sort inst/result.log | tee -a $TEST_RESULTS
+
+# Show the full logs from each test
 more inst/run-port-*/nodes/ping*/activate.log | cat
 more inst/run-port-*/nodes/nmap*/activate.log | cat
 more inst/run-port-*/nodes/brute*/activate.log | cat
 more inst/run-port-*/nodes/macoui*/activate.log | cat
 more inst/run-port-*/nodes/tls*/activate.log | cat
+more inst/run-port-*/nodes/discover*/activate.log | cat
 ls inst/fail_fail01/ | tee -a $TEST_RESULTS
+
+# Add the port-01 and port-02 module config into the file
 echo port-01 module_config modules | tee -a $TEST_RESULTS
 jq .modules inst/run-port-01/nodes/ping01/tmp/module_config.json | tee -a $TEST_RESULTS
 echo port-02 module_config modules | tee -a $TEST_RESULTS
 jq .modules inst/run-port-02/nodes/ping02/tmp/module_config.json | tee -a $TEST_RESULTS
+
+# Add a lovely snake and a lovely lizard into this file for sanity checking
 cat inst/run-port-02/nodes/ping02/tmp/snake.txt | tee -a $TEST_RESULTS
 cat inst/run-port-02/nodes/ping02/tmp/lizard.txt | tee -a $TEST_RESULTS
 
+# Add the results for cloud tests into a different file
 fgrep -h RESULT inst/run-port-*/nodes/udmi*/tmp/report.txt | tee -a $GCP_RESULTS
 
 for num in 1 2 3; do
@@ -105,6 +116,8 @@ for num in 1 2 3; do
 done
 echo done with docker logs
 
+# Remove things that will always (probably) change - like DAQ version and timestamps
+# from comparison
 function redact {
     sed -e 's/\s*%%.*//' \
         -e 's/2019-.*T.*Z/XXX/' \
@@ -112,6 +125,7 @@ function redact {
         -e 's/DAQ version.*//'
 }
 
+# Make sure that what you've done hasn't messed up DAQ by diffing the output from your test run
 cat docs/device_report.md | redact > out/redacted_docs.md
 cat inst/reports/report_9a02571e8f01_*.md | redact > out/redacted_file.md
 
