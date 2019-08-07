@@ -88,8 +88,8 @@ public class Csv {
     Multimap<String, String> appendicesMap = picsValidator.getResultMap();
 
     for (Map.Entry appendix : appendicesMap.entries()) {
-      System.out.println(appendix.getValue());
-      appendixText += appendix.getValue() + "\n";
+      appendixText += String.format("%s %s \n", appendix.getKey(), appendix.getValue());
+      System.out.print(appendixText);
     }
     return appendixText + "\n";
   }
