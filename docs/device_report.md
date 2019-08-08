@@ -114,15 +114,7 @@ security.firmware
 --------------------
 Automatic bacnet firmware scan using nmap
 --------------------
-# Nmap 7.60 scan initiated Tue Aug  6 10:38:54 2019 as: nmap --script bacnet-info -sU -p 47808 -oN /tmp/discover.log 10.20.62.164
-Nmap scan report for daq-faux-1 (10.20.62.164)
-Host is up (0.00018s latency).
-
-PORT      STATE  SERVICE
-47808/udp closed bacnet
 MAC Address: 9A:02:57:1E:8F:01 (Unknown)
-
-# Nmap done at Tue Aug  6 10:38:55 2019 -- 1 IP address (1 host up) scanned in 0.85 seconds
 Firmware test complete
 --------------------
 RESULT skip security.firmware Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered
