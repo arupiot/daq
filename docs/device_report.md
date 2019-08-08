@@ -114,6 +114,8 @@ security.firmware
 --------------------
 Automatic bacnet firmware scan using nmap
 --------------------
+PORT      STATE  SERVICE
+47808/udp closed bacnet
 MAC Address: 9A:02:57:1E:8F:01 (Unknown)
 Firmware test complete
 --------------------
