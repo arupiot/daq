@@ -89,7 +89,6 @@ public class Csv {
 
     for (Map.Entry appendix : appendicesMap.entries()) {
       appendixText += String.format("%s %s \n", appendix.getKey(), appendix.getValue());
-      System.out.print(appendixText);
     }
     return appendixText + "\n";
   }
