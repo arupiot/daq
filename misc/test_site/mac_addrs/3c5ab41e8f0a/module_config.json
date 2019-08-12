@@ -16,6 +16,9 @@
   "modules": {
     "pass": {
       "enabled": true
+    },
+    "switch": {
+      "enabled": true
     }
   },
   "servers": {

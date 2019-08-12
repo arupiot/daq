@@ -71,7 +71,8 @@ Overall device result FAIL
 |skip|poe.negotiation|Other|Other||
 |skip|poe.power|Other|Other||
 |skip|poe.support|Other|Other||
-|skip|protocol.bacnet.version|Other|Other||
+|skip|protocol.bacnet.pic|Other|Other|Bacnet device not found... Pics check cannot be performed.|
+|skip|protocol.bacnet.version|Other|Other|Bacnet device not found.|
 |skip|security.firmware|Other|Other|Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered|
 |pass|security.ports.nmap|Security|Recommended||
 |skip|security.tls.v3|Other|Other||
@@ -144,7 +145,8 @@ RESULT fail connection.mac_oui
 ## Module bacext
 
 ```
-RESULT skip protocol.bacnet.version
+RESULT skip protocol.bacnet.version Bacnet device not found.
+RESULT skip protocol.bacnet.pic Bacnet device not found... Pics check cannot be performed.
 ```
 
 ## Module tls
