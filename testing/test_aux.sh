@@ -15,6 +15,8 @@ echo Lint checks | tee -a $TEST_RESULTS
 cmd/inbuild skip
 echo cmd/inbuild exit code $? | tee -a $TEST_RESULTS
 
+# Function to create pubber config files (for use in cloud tests)
+
 function make_pubber {
     device=$1
     faux=$2
@@ -75,8 +77,9 @@ fi
 
 more inst/faux/daq-faux-*/local/pubber.json | cat
 
-echo Starting aux test run...
+
 # Run DAQ in single shot mode
+echo Starting aux test run...
 cmd/run -b -s
 
 # Add just the RESULT lines from all aux tests into a file
