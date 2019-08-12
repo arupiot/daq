@@ -128,3 +128,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# other
+testing/*dream*
