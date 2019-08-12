@@ -72,10 +72,10 @@ Overall device result FAIL
 |skip|poe.power|Other|Other||
 |skip|poe.support|Other|Other||
 |skip|protocol.bacnet.version|Other|Other||
+|skip|security.firmware|Other|Other|Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered|
 |pass|security.ports.nmap|Security|Recommended||
 |skip|security.tls.v3|Other|Other||
 |skip|security.x509|Other|Other||
-|skip|security.firmware|Other|Other|Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered|
 |gone|unknown.fake.llama|Other|Other||
 |gone|unknown.fake.monkey|Other|Other||
 
