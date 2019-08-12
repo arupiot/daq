@@ -107,7 +107,8 @@ jq .modules inst/run-port-02/nodes/ping02/tmp/module_config.json | tee -a $TEST_
 cat inst/run-port-02/nodes/ping02/tmp/snake.txt | tee -a $TEST_RESULTS
 cat inst/run-port-02/nodes/ping02/tmp/lizard.txt | tee -a $TEST_RESULTS
 
-# Add the results for cloud tests into a different file
+# Add the results for cloud tests into a different file, since cloud tests may not run if
+# our test environment isn't set up correctly...
 fgrep -h RESULT inst/run-port-*/nodes/udmi*/tmp/report.txt | tee -a $GCP_RESULTS
 
 for num in 1 2 3; do
@@ -116,8 +117,9 @@ for num in 1 2 3; do
 done
 echo done with docker logs
 
-# Remove things that will always (probably) change - like DAQ version and timestamps
+# Remove things that will always (probably) change - like DAQ version/timestamps/IPs
 # from comparison
+# This won't necessarily work in 2020, for example...
 function redact {
     sed -e 's/\s*%%.*//' \
         -e 's/2019-.*T.*Z/XXX/' \

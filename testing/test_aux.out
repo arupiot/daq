@@ -46,7 +46,7 @@ port-01 module_config modules
   },
   "discover": {
     "enabled": true
-  }
+  },
   "macoui": {
     "enabled": true
   },
@@ -82,7 +82,7 @@ port-02 module_config modules
   },
   "discover": {
     "enabled": true
-  }
+  },
   "foobar": {
     "enabled": false
   },
