@@ -79,14 +79,16 @@ if [ -n "${options[telnet]}" ]; then
     (while true; do echo Telnet `hostname`; nc -nvlt -p 23 -e `which hostname`; done) &
 fi
 
-if [ -n "${options[bacnet]}" ]; then
+function bacnet_faux {
     echo Starting bacnet loop device.
     java -cp bacnetTests/build/libs/bacnet-1.0-SNAPSHOT-all.jar \
          FauxDeviceEngine.EntryPoint $local_ip $broadcast_ip "Faux-Device-Pass.json"  &
+}
+
+if [ -n "${options[bacnet]}" ]; then
+    bacnet_faux
 elif [ -n "${options[bacnetfail]}" ]; then
-    echo Starting bacnet loop device.
-    java -cp bacnetTests/build/libs/bacnet-1.0-SNAPSHOT-all.jar \
-         FauxDeviceEngine.EntryPoint $local_ip $broadcast_ip "Faux-Device-Fail.json"  &
+    bacnet_faux
 fi
 
 if [ -n "${options[discover]}" ]; then
