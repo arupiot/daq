@@ -48,7 +48,7 @@ public class PicsTest {
         performPicsChecks();
       } else {
         // Results in a 'skip' result
-        reportAppendix += " Bacnet device not found... Pics check cannot be performed.";
+        reportAppendix += " Bacnet device not found... Pics check cannot be performed. \n";
         System.out.println(reportAppendix);
         generateReport();
       }
@@ -64,7 +64,7 @@ public class PicsTest {
         Multimap<String, Map<String, String>> bacnetPointsMap = bacnetPoints.getBacnetPointsMap();
         boolean csvExists = fileManager.checkDevicePicCSV();
         if(!csvExists) {
-          additionalReportAppendix = "pics.csv not found in device_types/../aux/ directory \n";
+          additionalReportAppendix = " pics.csv not found in device_types/../aux/ directory \n";
           skippedTestReport += additionalReportAppendix;
           this.csvFound = false;
           generateReport();
