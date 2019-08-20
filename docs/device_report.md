@@ -28,7 +28,7 @@
 | Make              | *** Make *** |
 | Model             | *** Model *** |
 | Serial Number     | *** Serial *** |
-| Firmware Version  | ?\xFF\xFF\x19,>u\x08\x00no |
+| Firmware Version  | *** Firmware Version *** |
 
 ## Device Description
 
@@ -56,7 +56,7 @@ Overall device result FAIL
 |---|---|---|---|---|
 |Required|1|1|0|0|
 |Recommended|1|0|0|0|
-|Other|0|1|12|2|
+|Other|0|1|13|2|
 
 |Result|Test|Category|Expectation|Notes|
 |---|---|---|---|---|
