@@ -48,7 +48,7 @@ public class PicsTest {
         performPicsChecks();
       } else {
         // Results in a 'skip' result
-        reportAppendix += " Bacnet device not found... Pics check cannot be performed. \n";
+        reportAppendix += " Bacnet device not found... Pics check cannot be performed.\n";
         System.out.println(reportAppendix);
         generateReport();
       }
