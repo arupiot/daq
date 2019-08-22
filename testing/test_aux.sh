@@ -4,6 +4,9 @@ source testing/test_preamble.sh
 
 echo Aux Tests >> $TEST_RESULTS
 
+# Test the mudacl config and the test_schema to make sure they
+# make sense for tests that use them
+
 echo mudacl tests | tee -a $TEST_RESULTS
 mudacl/bin/test.sh
 echo Mudacl exit code $? | tee -a $TEST_RESULTS
@@ -84,10 +87,11 @@ cmd/run -b -s
 
 # Add just the RESULT lines from all aux tests into a file
 fgrep -h RESULT inst/run-port-*/nodes/bacext*/tmp/report.txt | tee -a $TEST_RESULTS
-tail -qn 1 inst/run-port-*/nodes/brute*/tmp/report.txt | tee -a $TEST_RESULTS
-tail -qn 1 inst/run-port-*/nodes/macoui*/tmp/report.txt | tee -a $TEST_RESULTS
+fgrep -h RESULT inst/run-port-*/nodes/brute*/tmp/report.txt | tee -a $TEST_RESULTS
+fgrep -h RESULT inst/run-port-*/nodes/macoui*/tmp/report.txt | tee -a $TEST_RESULTS
 fgrep -h RESULT inst/run-port-*/nodes/tls*/tmp/report.txt | tee -a $TEST_RESULTS
 fgrep -h RESULT inst/run-port-*/nodes/discover*/tmp/report.txt | tee -a $TEST_RESULTS
+
 more inst/run-port-*/scans/dhcp_triggers.txt | cat
 dhcp_done=$(fgrep done inst/run-port-01/scans/dhcp_triggers.txt | wc -l)
 dhcp_long=$(fgrep long inst/run-port-01/scans/dhcp_triggers.txt | wc -l)
@@ -115,7 +119,7 @@ cat inst/run-port-02/nodes/ping02/tmp/snake.txt | tee -a $TEST_RESULTS
 cat inst/run-port-02/nodes/ping02/tmp/lizard.txt | tee -a $TEST_RESULTS
 
 # Add the results for cloud tests into a different file, since cloud tests may not run if
-# our test environment isn't set up correctly...
+# our test environment isn't set up correctly. See bin/test_daq for more insight
 fgrep -h RESULT inst/run-port-*/nodes/udmi*/tmp/report.txt | tee -a $GCP_RESULTS
 
 for num in 1 2 3; do
