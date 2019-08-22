@@ -37,6 +37,12 @@ function make_pubber {
 EOF
 }
 
+function capture_aux_test_log {
+    module_name=$1
+    test_name=$2
+    fgrep -h RESULT inst/run-port-*/nodes/$module_name*/tmp/report.txt | tee -a $TEST_RESULTS
+}
+
 # Setup an instance test site
 rm -rf inst/test_site && mkdir -p inst/test_site
 cp -a misc/test_site inst/
@@ -85,13 +91,15 @@ more inst/faux/daq-faux-*/local/pubber.json | cat
 echo Starting aux test run...
 cmd/run -b -s
 
-# Add just the RESULT lines from all aux tests into a file
-fgrep -h RESULT inst/run-port-*/nodes/bacext*/tmp/report.txt | tee -a $TEST_RESULTS
-fgrep -h RESULT inst/run-port-*/nodes/brute*/tmp/report.txt | tee -a $TEST_RESULTS
-fgrep -h RESULT inst/run-port-*/nodes/macoui*/tmp/report.txt | tee -a $TEST_RESULTS
-fgrep -h RESULT inst/run-port-*/nodes/tls*/tmp/report.txt | tee -a $TEST_RESULTS
-fgrep -h RESULT inst/run-port-*/nodes/discover*/tmp/report.txt | tee -a $TEST_RESULTS
+# Add just the RESULT lines from all aux tests (from all ports, 3 in this case) into a file
+# These ARE the auxiliary tests
+capture_aux_test_log bacext all
+capture_aux_test_log brute all
+capture_aux_test_log macoui all
+capture_aux_test_log tls all
+capture_aux_test_log discover all
 
+# Capture peripheral logs
 more inst/run-port-*/scans/dhcp_triggers.txt | cat
 dhcp_done=$(fgrep done inst/run-port-01/scans/dhcp_triggers.txt | wc -l)
 dhcp_long=$(fgrep long inst/run-port-01/scans/dhcp_triggers.txt | wc -l)
