@@ -61,6 +61,9 @@ startup_faux_2_opts="nobrute expiredtls bacnetfail pubber"
 startup_faux_3_opts="tls macoui bacnet pubber"
 EOF
 
+# If we have GCP credentials wherever we're running the test,
+# make pubbers.
+
 cloud_file=inst/test_site/cloud_iot_config.json
 cred_file=inst/config/gcp_service_account.json
 mkdir -p inst/config
