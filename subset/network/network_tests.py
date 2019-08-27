@@ -9,8 +9,7 @@ cap_pcap_file = str(arguments[2])
 device_address = str(arguments[3])
 
 report_filename = 'report.txt'
-
-min_packet_length = 38
+min_packet_length_bytes = 20
 max_packets_in_report = 10
 
 tcpdump_display_all_packets = 'tcpdump -n src host ' + device_address + ' -r ' + cap_pcap_file
@@ -62,7 +61,7 @@ if shell_result is None:
     write_report("RESULT fail %s\n" % test_request)
 
 else:
-    if len(shell_result) > min_packet_length:
+    if len(shell_result) > min_packet_length_bytes:
         packet_request_list = shell_result.split("\n")
         packets_received = len(packet_request_list)
         add_packet_info_to_report()
