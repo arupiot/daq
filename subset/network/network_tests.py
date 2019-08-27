@@ -10,7 +10,7 @@ device_address = str(arguments[3])
 
 report_filename = 'report.txt'
 
-min_packet_length = 40
+min_packet_length = 38
 max_packets_in_report = 10
 
 tcpdump_display_all_packets = 'tcpdump -n src host ' + device_address + ' -r ' + cap_pcap_file
