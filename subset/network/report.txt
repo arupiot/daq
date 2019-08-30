@@ -1,0 +1,12 @@
+17:21:41.782264 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has DESKTOP-N8PEA86.mshome.net tell pegasus.mshome.net, length 28
+17:21:41.782603 ARP, Ethernet (len 6), IPv4 (len 4), Reply DESKTOP-N8PEA86.mshome.net is-at 00:15:5d:d7:47:b9 (oui Unknown), length 28
+17:25:08.374068 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has DESKTOP-N8PEA86.mshome.net tell pegasus.mshome.net, length 28
+17:25:08.374190 ARP, Ethernet (len 6), IPv4 (len 4), Reply DESKTOP-N8PEA86.mshome.net is-at 00:15:5d:d7:47:b9 (oui Unknown), length 28
+17:26:38.742073 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has DESKTOP-N8PEA86.mshome.net tell pegasus.mshome.net, length 28
+17:26:38.742308 ARP, Ethernet (len 6), IPv4 (len 4), Reply DESKTOP-N8PEA86.mshome.net is-at 00:15:5d:d7:47:b9 (oui Unknown), length 28
+17:31:20.342084 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has DESKTOP-N8PEA86.mshome.net tell pegasus.mshome.net, length 28
+17:31:20.342319 ARP, Ethernet (len 6), IPv4 (len 4), Reply DESKTOP-N8PEA86.mshome.net is-at 00:15:5d:d7:47:b9 (oui Unknown), length 28
+17:36:18.326137 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has DESKTOP-N8PEA86.mshome.net tell pegasus.mshome.net, length 28
+17:36:18.326293 ARP, Ethernet (len 6), IPv4 (len 4), Reply DESKTOP-N8PEA86.mshome.net is-at 00:15:5d:d7:47:b9 (oui Unknown), length 28
+packets_count=15
+RESULT pass connection.dhcp_long
