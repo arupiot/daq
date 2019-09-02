@@ -5,7 +5,7 @@ function write_out_result {
     LOG=$4
     RESULT_AND_SUMMARY=$5
 
-    cat <<EOF > $REPORT
+    cat <<END >> $REPORT
 --------------------
 $TEST_NAME
 --------------------
@@ -15,5 +15,5 @@ $LOG
 --------------------
 $RESULT_AND_SUMMARY
 
-EOF
+END
 }
