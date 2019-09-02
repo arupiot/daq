@@ -102,6 +102,7 @@ capture_aux_test_log brute all
 capture_aux_test_log macoui all
 capture_aux_test_log tls all
 capture_aux_test_log discover all
+capture_aux_test_log network all
 
 # Capture peripheral logs
 more inst/run-port-*/scans/dhcp_triggers.txt | cat
@@ -118,6 +119,7 @@ more inst/run-port-*/nodes/macoui*/activate.log | cat
 more inst/run-port-*/nodes/tls*/activate.log | cat
 more inst/run-port-*/nodes/discover*/activate.log | cat
 more inst/run-port-*/nodes/bacext*/activate.log | cat
+more inst/run-port-*/nodes/network*/activate.log | cat
 ls inst/fail_fail01/ | tee -a $TEST_RESULTS
 
 # Add the port-01 and port-02 module config into the file
