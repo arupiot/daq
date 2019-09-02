@@ -1,4 +1,5 @@
 #!/bin/bash -e
+source reporting_utils
 
 REPORT=/tmp/report.txt
 
@@ -54,4 +55,8 @@ else
     detail="No result found"
 fi
 
-echo RESULT $result cloud.udmi.pointset $detail | tee -a $REPORT
+write_out_result $REPORT \
+                 "cloud.udmi.pointset" \
+                 "Validates the payloads from the DUT to a predefined schema" \
+                 "see activate.log for more details" \
+                 "RESULT $result cloud.udmi.pointset $detail"
