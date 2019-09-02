@@ -6,15 +6,9 @@ Validator exit code 0
 Lint checks
 cmd/inbuild exit code 0
 Extended tests
-RESULT skip security.passwords
-RESULT fail security.passwords
-RESULT pass security.passwords
-RESULT skip protocol.bacnet.version Bacnet device not found.
-RESULT skip protocol.bacnet.pic Bacnet device not found... Pics check cannot be performed.
+RESULT skip protocol.bacnet.version
+RESULT skip protocol.bacnet.version
 RESULT info protocol.bacnet.version Protocol version: 1
-RESULT fail protocol.bacnet.pic
-RESULT info protocol.bacnet.version Protocol version: 1
-RESULT pass protocol.bacnet.pic
 RESULT fail network.brute
 RESULT pass network.brute
 RESULT skip network.brute
@@ -27,12 +21,9 @@ RESULT fail security.tls.v3
 RESULT fail security.x509
 RESULT pass security.tls.v3
 RESULT pass security.x509
-RESULT skip security.firmware Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered
-RESULT fail security.firmware version found: ?\xFF\xFF\x19,>u\x08\x00no Firmware version does not match
-RESULT pass security.firmware version found: ?\xFF\xFF\x19,>u\x08\x00no
 dhcp requests 2 1
 01: ['01:brute:1']
-02: ['02:discover:1', '02:nmap:1']
+02: ['02:nmap:1']
 03: []
 ctrl-br.flows
 ctrl-br.ofctl
@@ -50,9 +41,6 @@ port-01 module_config modules
   "brute": {
     "enabled": true
   },
-  "discover": {
-    "enabled": true
-  },
   "macoui": {
     "enabled": true
   },
@@ -60,9 +48,6 @@ port-01 module_config modules
     "enabled": true
   },
   "pass": {
-    "enabled": true
-  },
-  "password": {
     "enabled": true
   },
   "switch": {
@@ -89,9 +74,6 @@ port-02 module_config modules
   "brute": {
     "enabled": true
   },
-  "discover": {
-    "enabled": true
-  },
   "foobar": {
     "enabled": false
   },
@@ -102,9 +84,6 @@ port-02 module_config modules
     "enabled": true
   },
   "pass": {
-    "enabled": true
-  },
-  "password": {
     "enabled": true
   },
   "switch": {

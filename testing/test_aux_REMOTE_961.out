@@ -6,9 +6,6 @@ Validator exit code 0
 Lint checks
 cmd/inbuild exit code 0
 Extended tests
-RESULT skip security.passwords
-RESULT fail security.passwords
-RESULT pass security.passwords
 RESULT skip protocol.bacnet.version Bacnet device not found.
 RESULT skip protocol.bacnet.pic Bacnet device not found... Pics check cannot be performed.
 RESULT info protocol.bacnet.version Protocol version: 1
@@ -62,9 +59,6 @@ port-01 module_config modules
   "pass": {
     "enabled": true
   },
-  "password": {
-    "enabled": true
-  },
   "switch": {
     "enabled": true,
     "poe": {
@@ -102,9 +96,6 @@ port-02 module_config modules
     "enabled": true
   },
   "pass": {
-    "enabled": true
-  },
-  "password": {
     "enabled": true
   },
   "switch": {
