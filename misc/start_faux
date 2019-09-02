@@ -25,11 +25,37 @@ else
     exit 1
 fi
 
+set_mac_addrs () {
+  echo Setting alternate mac $1 on $intf_name
+  ip link set addr $1 dev $intf_name
+}
+
+set_passwd () {
+  echo $1 | chpasswd
+}
+
+createuser () {
+  echo $1 | adduser $2
+  echo $3 | chpasswd
+}
 # Setup change-of-mac address for macoui testing.
 if [ -n "${options[macoui]}" ]; then
     new_mac=3c:5a:b4:1e:8f:0a
-    echo Setting alternate mac $new_mac on $intf_name
-    ip link set addr $new_mac dev $intf_name
+    set_mac_addrs $new_mac
+fi
+
+if [ -n "${options[passwordpass]}" ]; then
+    new_mac=3c:5a:b4:1e:8f:0a
+    set_mac_addrs $new_mac
+    set_passwd 'root:pass'
+    /usr/sbin/sshd -D &
+fi
+
+if [ -n "${options[passwordfail]}" ]; then
+    set_passwd 'root:redstone'
+    echo "pass\npass\n\n\n\n\n\ny\n" | adduser "admin"
+    echo "admin:redstone" | chpasswd
+    /usr/sbin/sshd -D &
 fi
 
 # To capture all the data in/out of the faux device for debugging, uncomment
@@ -79,28 +105,10 @@ if [ -n "${options[telnet]}" ]; then
     (while true; do echo Telnet `hostname`; nc -nvlt -p 23 -e `which hostname`; done) &
 fi
 
-<<<<<<< HEAD
-# Setup dummy https listener to trigger port-scan failure
-if [ -n "${options[https]}" ]; then
-    echo Enabling mock https server...
-    (while true; do echo https`hostname`; nc -nvlt -p 443 -e `which hostname`; done) &
-fi
-
-if [-n "${options[ssh]}" ]; then 
-	echo Enabling mock ssh server...
-	/usr/sbin/sshd -D
-fi
-
-=======
->>>>>>> upstream/master
 if [ -n "${options[bacnet]}" ]; then
     echo Starting bacnet loop device.
-    java -cp bacnetTests/build/libs/bacnet-1.0-SNAPSHOT-all.jar \
-         FauxDeviceEngine.EntryPoint $local_ip $broadcast_ip "Faux-Device-Pass.json"  &
-elif [ -n "${options[bacnetfail]}" ]; then
-    echo Starting bacnet loop device.
-    java -cp bacnetTests/build/libs/bacnet-1.0-SNAPSHOT-all.jar \
-         FauxDeviceEngine.EntryPoint $local_ip $broadcast_ip "Faux-Device-Fail.json"  &
+    java -cp bacnet4j/bacnet4j-1.0-SNAPSHOT-all.jar \
+         com.serotonin.bacnet4j.test.LoopDevice $local_ip $broadcast_ip &
 fi
 
 if [ -n "${options[discover]}" ]; then
@@ -121,9 +129,6 @@ elif [ -n "${options[nobrute]}" ]; then
     (python pentests/brute_server.py good 10000; echo Brute done.) &
 fi
 
-<<<<<<< HEAD
-
-=======
 if [ -n "${options[tls]}" ]; then
     echo Generating tls certs.
     python tlsfaux/generate_certs.py
@@ -133,7 +138,6 @@ elif [ -n "${options[expiredtls]}" ]; then
     echo Starting expired tls server on port 443 https.
     python tlsfaux/server.py expcerts &
 fi
->>>>>>> upstream/master
 
 if [ -n "${options[pubber]}" ]; then
     echo Running cloud pubber tool...

@@ -3,7 +3,6 @@
 .build_hash
 .build_files
 .build_built
-.project
 
 firebase/public/firebase_config.js
 
@@ -18,7 +17,6 @@ inst/
 faucet/
 mininet/
 local/
-local_xxx
 firebase/.firebaserc
 firebase/.firebase
 firebase/functions/package-lock.json
@@ -128,6 +126,3 @@ ENV/
 
 # mypy
 .mypy_cache/
-
-# other
-testing/*dream*

@@ -84,6 +84,10 @@
           "allowed": true,
           "reason": "Administrative Secure Web-Server"
         },
+        "5500": {
+          "allowed": false,
+          "reason": "Virtual Network Computing (VNC) Remote Frame Buffer Protocol"
+        },
         "5800": {
           "allowed": false,
           "reason": "Virtual Network Computing (VNC) Remote Frame Buffer Protocol Over HTTP"
@@ -124,6 +128,6 @@
     }
   },
   "process": {
-     "attempt_number": 1
+     "attempt_number": 1,
   }
 }

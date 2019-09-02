@@ -7,8 +7,7 @@
     "name": "*** Name ***",
     "serial": "*** Serial ***",
     "type": "*** Type ***",
-    "version": "*** Version ***",
-    "firmware_version": "*** Firmware Version ***"
+    "version": "*** Version ***"
   },
   "device_type": "rocket", 
   "device_id": "AHU-1",
