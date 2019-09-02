@@ -11,8 +11,8 @@
 
 | Test             |                        |
 |------------------|------------------------|
-| Test report start date | 2019-07-15 22:55:25+00:00 |
-| Test report end date   | 2019-07-15 23:01:50+00:00 |
+| Test report start date | 2019-09-02 10:13:59+00:00 |
+| Test report end date   | 2019-09-02 10:25:20+00:00 |
 | DAQ version      | 1.0.1 |
 | Attempt number   | 1 |
 
@@ -56,14 +56,16 @@ Overall device result FAIL
 |---|---|---|---|---|
 |Required|1|1|0|0|
 |Recommended|1|0|0|0|
-|Other|0|1|13|2|
+|Other|1|2|13|2|
 
 |Result|Test|Category|Expectation|Notes|
 |---|---|---|---|---|
 |skip|base.switch.ping|Other|Other||
 |pass|base.target.ping|Connectivity|Required|target|
 |skip|cloud.udmi.pointset|Other|Other|No device id.|
+|pass|connection.dhcp_long|Other|Other||
 |fail|connection.mac_oui|Other|Other||
+|fail|connection.min_send|Other|Other||
 |skip|connection.port_duplex|Other|Other||
 |skip|connection.port_link|Other|Other||
 |skip|connection.port_speed|Other|Other||
@@ -85,9 +87,9 @@ Overall device result FAIL
 
 ```
 Baseline ping test report
-%% 61 packets captured.
+%% 65 packets captured.
 RESULT skip base.switch.ping
-RESULT pass base.target.ping target %% 10.20.92.164
+RESULT pass base.target.ping target %% 10.20.50.164
 ```
 
 ## Module nmap
@@ -161,6 +163,24 @@ RESULT skip security.x509
 
 ```
 RESULT skip cloud.udmi.pointset No device id.
+```
+
+## Module network
+
+```
+10:14:27.400576 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.5 tell daq-faux-1, length 28
+10:14:27.400607 ARP, Ethernet (len 6), IPv4 (len 4), Reply 10.0.0.5 is-at 7a:23:c8:57:48:c2 (oui Unknown), length 28
+10:15:19.112848 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.5, length 28
+10:15:19.113025 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.5 tell daq-faux-1, length 28
+10:15:19.113052 ARP, Ethernet (len 6), IPv4 (len 4), Reply 10.0.0.5 is-at 7a:23:c8:57:48:c2 (oui Unknown), length 28
+10:15:19.113146 ARP, Ethernet (len 6), IPv4 (len 4), Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+10:18:35.720921 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.5, length 28
+10:18:35.720946 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.5 tell daq-faux-1, length 28
+10:18:35.720972 ARP, Ethernet (len 6), IPv4 (len 4), Reply 10.0.0.5 is-at 7a:23:c8:57:48:c2 (oui Unknown), length 28
+10:18:35.721059 ARP, Ethernet (len 6), IPv4 (len 4), Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+packets_count=11
+RESULT pass connection.dhcp_long
+RESULT fail connection.min_send
 ```
 
 ## Report complete
