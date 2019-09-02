@@ -15,6 +15,11 @@ report_filename = 'report.txt'
 min_packet_length_bytes = 20
 max_packets_in_report = 10
 packet_request_list = []
+ignore = '%%'
+summary = ''
+dash_break_line = '--------------------\n'
+description_min_send = 'Device sends packets less than 5 minutes excluding arp packets'
+description_dhcp_long = 'Device sends arp request packets on DHCP lease expiry'
 
 tcpdump_display_all_packets = 'tcpdump -n src host ' + device_address + ' -r ' + cap_pcap_file
 tcpdump_display_udp_bacnet_packets = 'tcpdump -n udp dst portrange 47808-47809 ' + cap_pcap_file
@@ -43,9 +48,9 @@ def add_packet_info_to_report(packets_received, packet_request_list):
         max = max_packets_in_report
     else:
         max = packets_received
-    for i in range(0, max):
-        write_report(packet_request_list[i] + '\n')
-    write_report('packets_count=%d\n' % packets_received)
+    for x in range(0, max):
+        write_report("{i} {p}\n".format(i=ignore, p=packet_request_list[x]))
+    write_report("{i} packets_count={p}\n".format(i=ignore, p=packets_received))
 
 def decode_shell_result(shell_result):
     global packet_request_list
@@ -63,10 +68,10 @@ def packets_received_count(shell_result):
 def test_connection_min_send():
     shell_result = shell_command_with_result(tcpdump_display_arp_packets, 0, False)
     arp_packets_received = packets_received_count(shell_result)
-    print("arp_packets_received: %d" % arp_packets_received)
+    add_summary("{i} arp_packets_received:{p} ".format(i=ignore, p=arp_packets_received))
     shell_result = shell_command_with_result(tcpdump_display_all_packets, 0, False)
     all_packets_received = packets_received_count(shell_result)
-    print("all_packets_received: %d" % all_packets_received)
+    add_summary("{i} all_packets_received:{p}\n".format(i=ignore, p=all_packets_received))
     if (all_packets_received - arp_packets_received) > 0:
         add_packet_info_to_report(arp_packets_received, packet_request_list)
         return 'pass'
@@ -76,16 +81,24 @@ def test_connection_min_send():
 def test_connection_dhcp_long():
     shell_result = shell_command_with_result(tcpdump_display_arp_packets, 0, False)
     arp_packets_received = packets_received_count(shell_result)
-    print("arp_packets_received: %d" % arp_packets_received)
+    add_summary("{i} arp_packets_received:{p}\n".format(i=ignore, p=arp_packets_received))
     if arp_packets_received > 0:
         add_packet_info_to_report(arp_packets_received, packet_request_list)
         return 'pass'
     else:
         return 'fail'
 
+def add_summary(text):
+    global summary
+    summary += text
+
+write_report("{b}{t}\n{b}".format(b=dash_break_line, t=test_request))
+
 if test_request == 'connection.min_send':
+    write_report("{d}\n{b}".format(b=dash_break_line, d=description_min_send))
     result = test_connection_min_send()
 elif test_request == 'connection.dhcp_long':
+    write_report("{d}\n{b}".format(b=dash_break_line, d=description_dhcp_long))
     result = test_connection_dhcp_long()
 
-write_report("RESULT {r} {t}\n".format(r=result, t=test_request))
+write_report("RESULT {r} {t} {s}\n".format(r=result, t=test_request, s=summary))
