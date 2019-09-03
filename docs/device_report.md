@@ -11,8 +11,8 @@
 
 | Test             |                        |
 |------------------|------------------------|
-| Test report start date | 2019-09-02 15:10:31+00:00 |
-| Test report end date   | 2019-09-02 15:23:33+00:00 |
+| Test report start date | 2019-09-03 10:40:30+00:00 |
+| Test report end date   | 2019-09-03 10:52:01+00:00 |
 | DAQ version      | 1.0.1 |
 | Attempt number   | 1 |
 
@@ -63,9 +63,9 @@ Overall device result FAIL
 |skip|base.switch.ping|Other|Other||
 |pass|base.target.ping|Connectivity|Required|target|
 |skip|cloud.udmi.pointset|Other|Other|No device id.|
-|pass|connection.dhcp_long|Other|Other||
+|pass|connection.dhcp_long|Other|Other|ARP packets received.|
 |fail|connection.mac_oui|Other|Other||
-|fail|connection.min_send|Other|Other||
+|fail|connection.min_send|Other|Other|ARP packets received. Packets received.|
 |skip|connection.port_duplex|Other|Other||
 |skip|connection.port_link|Other|Other||
 |skip|connection.port_speed|Other|Other||
@@ -87,9 +87,9 @@ Overall device result FAIL
 
 ```
 Baseline ping test report
-%% 80 packets captured.
+%% 68 packets captured.
 RESULT skip base.switch.ping
-RESULT pass base.target.ping target %% 10.20.22.164
+RESULT pass base.target.ping target %% 10.20.28.164
 ```
 
 ## Module nmap
@@ -173,14 +173,14 @@ connection.dhcp_long
 --------------------
 Device sends ARP request on DHCP lease expiry.
 --------------------
-%% 15:12:35.373072 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 15:12:35.373260 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% 15:12:35.373281 ARP, Ethernet (len 6), IPv4 (len 4), Reply 10.0.0.1 is-at da:9f:9f:05:69:ca (oui Unknown), length 28
-%% 15:12:35.373445 ARP, Ethernet (len 6), IPv4 (len 4), Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
-%% 15:16:14.508868 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 15:16:14.509005 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% 15:16:14.509025 ARP, Ethernet (len 6), IPv4 (len 4), Reply 10.0.0.1 is-at da:9f:9f:05:69:ca (oui Unknown), length 28
-%% 15:16:14.509095 ARP, Ethernet (len 6), IPv4 (len 4), Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 10:41:57.185994 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.5, length 28
+%% 10:41:57.186319 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.5 tell daq-faux-1, length 28
+%% 10:41:57.186455 ARP, Ethernet (len 6), IPv4 (len 4), Reply 10.0.0.5 is-at 22:44:cf:96:ab:87 (oui Unknown), length 28
+%% 10:41:57.186518 ARP, Ethernet (len 6), IPv4 (len 4), Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 10:45:05.601831 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.5, length 28
+%% 10:45:05.602811 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.5 tell daq-faux-1, length 28
+%% 10:45:05.602855 ARP, Ethernet (len 6), IPv4 (len 4), Reply 10.0.0.5 is-at 22:44:cf:96:ab:87 (oui Unknown), length 28
+%% 10:45:05.603041 ARP, Ethernet (len 6), IPv4 (len 4), Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
 %% 
 %% packets_count=9
 RESULT pass connection.dhcp_long ARP packets received.
