@@ -7,7 +7,10 @@ arguments = sys.argv
 test_request = str(arguments[1])
 cap_pcap_file = str(arguments[2])
 device_address = str(arguments[3])
-if len(arguments) < 3:
+
+connection_app_min_send_mode = len(arguments) > 4
+
+if connection_app_min_send_mode:
     module_config = str(arguments[4])
     infastructure_exclude_file = str(arguments[5])
 

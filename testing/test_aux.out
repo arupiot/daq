@@ -33,7 +33,7 @@ RESULT pass connection.dhcp_long ARP packets received.
 RESULT fail connection.min_send ARP packets received. Packets received.
 RESULT pass connection.dhcp_long ARP packets received.
 RESULT fail connection.min_send ARP packets received. Packets received.
-dhcp requests 2 3
+dhcp requests 2 2
 01: ['01:brute:1']
 02: ['02:discover:1', '02:nmap:1']
 03: []
