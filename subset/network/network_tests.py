@@ -18,8 +18,8 @@ packet_request_list = []
 ignore = '%%'
 summary = ''
 dash_break_line = '--------------------\n'
-description_min_send = 'Device sends packets less than 5 minutes excluding arp packets'
-description_dhcp_long = 'Device sends arp request packets on DHCP lease expiry'
+description_min_send = 'Device sends data at a frequency of less than 5 minutes.'
+description_dhcp_long = 'Device sends ARP request on DHCP lease expiry.'
 
 tcpdump_display_all_packets = 'tcpdump -n src host ' + device_address + ' -r ' + cap_pcap_file
 tcpdump_display_udp_bacnet_packets = 'tcpdump -n udp dst portrange 47808-47809 ' + cap_pcap_file
@@ -68,10 +68,12 @@ def packets_received_count(shell_result):
 def test_connection_min_send():
     shell_result = shell_command_with_result(tcpdump_display_arp_packets, 0, False)
     arp_packets_received = packets_received_count(shell_result)
-    add_summary("{i} arp_packets_received:{p} ".format(i=ignore, p=arp_packets_received))
+    if arp_packets_received > 0:
+        add_summary("ARP packets received. ")
     shell_result = shell_command_with_result(tcpdump_display_all_packets, 0, False)
     all_packets_received = packets_received_count(shell_result)
-    add_summary("{i} all_packets_received:{p}\n".format(i=ignore, p=all_packets_received))
+    if all_packets_received > 0:
+        add_summary("Packets received.\n")
     if (all_packets_received - arp_packets_received) > 0:
         add_packet_info_to_report(arp_packets_received, packet_request_list)
         return 'pass'
@@ -81,8 +83,8 @@ def test_connection_min_send():
 def test_connection_dhcp_long():
     shell_result = shell_command_with_result(tcpdump_display_arp_packets, 0, False)
     arp_packets_received = packets_received_count(shell_result)
-    add_summary("{i} arp_packets_received:{p}\n".format(i=ignore, p=arp_packets_received))
     if arp_packets_received > 0:
+        add_summary("ARP packets received.\n")
         add_packet_info_to_report(arp_packets_received, packet_request_list)
         return 'pass'
     else:

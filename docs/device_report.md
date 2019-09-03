@@ -171,7 +171,7 @@ RESULT skip cloud.udmi.pointset No device id.
 --------------------
 connection.dhcp_long
 --------------------
-Device sends arp request packets on DHCP lease expiry
+Device sends ARP request on DHCP lease expiry.
 --------------------
 %% 15:12:35.373072 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.1, length 28
 %% 15:12:35.373260 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.1 tell daq-faux-1, length 28
@@ -183,14 +183,14 @@ Device sends arp request packets on DHCP lease expiry
 %% 15:16:14.509095 ARP, Ethernet (len 6), IPv4 (len 4), Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
 %% 
 %% packets_count=9
-RESULT pass connection.dhcp_long %% arp_packets_received:9
+RESULT pass connection.dhcp_long ARP packets received.
 
 --------------------
 connection.min_send
 --------------------
-Device sends packets less than 5 minutes excluding arp packets
+Device sends data at a frequency of less than 5 minutes.
 --------------------
-RESULT fail connection.min_send %% arp_packets_received:9 %% all_packets_received:7
+RESULT fail connection.min_send ARP packets received. Packets received.
 
 ```
 
