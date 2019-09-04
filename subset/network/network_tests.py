@@ -8,9 +8,9 @@ test_request = str(arguments[1])
 cap_pcap_file = str(arguments[2])
 device_address = str(arguments[3])
 
-connection_app_min_send_mode = len(arguments) > 4
+protocol_app_min_send_mode = len(arguments) > 4
 
-if connection_app_min_send_mode:
+if protocol_app_min_send_mode:
     module_config = str(arguments[4])
     infastructure_exclude_file = str(arguments[5])
 
@@ -23,13 +23,16 @@ summary = ''
 dash_break_line = '--------------------\n'
 description_min_send = 'Device sends data at a frequency of less than 5 minutes.'
 description_dhcp_long = 'Device sends ARP request on DHCP lease expiry.'
+description_app_min_send = 'Device sends apllication packets at a frequency of less than 5 minutes.'
+description_communication_type = 'Device sends unicast, multicast or broadcast packets.'
 
 tcpdump_display_all_packets = 'tcpdump -n src host ' + device_address + ' -r ' + cap_pcap_file
 tcpdump_display_udp_bacnet_packets = 'tcpdump -n udp dst portrange 47808-47809 ' + cap_pcap_file
 tcpdump_display_arp_packets = 'tcpdump -v arp -r ' + cap_pcap_file
 tcpdump_display_ntp_packets = 'tcpdump dst port 123 -r ' + cap_pcap_file
 tcpdump_display_eapol_packets = 'tcpdump port 1812 or port 1813 or port 3799 ' + cap_pcap_file
-tcpdump_display_umb_packets = 'tcpdump -n ether broadcast and ether multicast ' + cap_pcap_file
+tcpdump_display_broadcast_packets = 'tcpdump -v broadcast -r ' + cap_pcap_file
+tcpdump_display_multicast_packets = 'tcpdump -v multicast -r ' + cap_pcap_file
 
 def write_report(string_to_append):
     with open(report_filename, 'a+') as file_open:
@@ -93,6 +96,24 @@ def test_connection_dhcp_long():
     else:
         return 'fail'
 
+def test_protocol_app_min_send():
+    print('protocol')
+
+def test_communication_type():
+    shell_result = shell_command_with_result(tcpdump_display_broadcast_packets, 0, False)
+    broadcast_packets_received = packets_received_count(shell_result)
+    if broadcast_packets_received > 0:
+        add_summary("Broadcast packets received. ")
+    shell_result = shell_command_with_result(tcpdump_display_multicast_packets, 0, False)
+    multicast_packets_received = packets_received_count(shell_result)
+    if multicast_packets_received > 0:
+        add_summary("Multicast packets received. ")
+    shell_result = shell_command_with_result(tcpdump_display_all_packets, 0, False)
+    all_packets_received = packets_received_count(shell_result)
+    if (all_packets_received - broadcast_packets_received - multicast_packets_received) > 0:
+        add_summary("Packets packets received.\n")
+    return 'info'
+
 def add_summary(text):
     global summary
     summary += text
@@ -105,5 +126,11 @@ if test_request == 'connection.min_send':
 elif test_request == 'connection.dhcp_long':
     write_report("{d}\n{b}".format(b=dash_break_line, d=description_dhcp_long))
     result = test_connection_dhcp_long()
+elif test_request == 'protocol.app_min_send':
+    write_report("{d}\n{b}".format(b=dash_break_line, d=description_app_min_send))
+    result = test_protocol_app_min_send()
+elif test_request == 'communication.type':
+    write_report("{d}\n{b}".format(b=dash_break_line, d=description_communication_type))
+    result = test_communication_type()
 
 write_report("RESULT {r} {t} {s}\n".format(r=result, t=test_request, s=summary))
