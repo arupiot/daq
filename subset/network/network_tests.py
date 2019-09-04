@@ -1,6 +1,4 @@
-import subprocess
-import time
-import sys
+import subprocess, time, sys, json
 
 arguments = sys.argv
 
@@ -12,14 +10,16 @@ protocol_app_min_send_mode = len(arguments) > 4
 
 if protocol_app_min_send_mode:
     module_config = str(arguments[4])
-    infastructure_exclude_file = str(arguments[5])
+    infastructure_excludes = str(arguments[5])
 
 report_filename = 'report.txt'
 min_packet_length_bytes = 20
 max_packets_in_report = 10
 packet_request_list = []
+port_list = []
 ignore = '%%'
 summary = ''
+result = 'fail'
 dash_break_line = '--------------------\n'
 description_min_send = 'Device sends data at a frequency of less than 5 minutes.'
 description_dhcp_long = 'Device sends ARP request on DHCP lease expiry.'
@@ -71,6 +71,37 @@ def packets_received_count(shell_result):
     else:
         return decode_shell_result(shell_result)
 
+def load_json_config(json_filename):
+    with open(json_filename, 'r') as json_file:
+        return json.load(json_file)
+
+def add_to_port_list(port_map):
+    global port_list
+    for port, port_info in port_map.items():
+        for key, value in port_info.items():
+            if key == 'allowed':
+                if value == True:
+                    port_list.append(port)
+
+def remove_from_port_list(port_map):
+    global port_list
+    for exclude in port_map:
+        for port in port_list:
+            if port == exclude:
+                port_list.remove(exclude)
+
+def decode_json_config(config_file, map_name, action):
+    dictionary = load_json_config(config_file)
+    for key, value in dictionary.items():
+        if key == map_name:
+            for protocol, info in value.items():
+                if protocol == 'udp' or protocol == 'tcp':  
+                    for ports, port_map in info.items():
+                        if action == 'add':
+                            add_to_port_list(port_map)
+                        elif action == 'remove':
+                            remove_from_port_list(port_map)
+
 def test_connection_min_send():
     shell_result = shell_command_with_result(tcpdump_display_arp_packets, 0, False)
     arp_packets_received = packets_received_count(shell_result)
@@ -97,7 +128,21 @@ def test_connection_dhcp_long():
         return 'fail'
 
 def test_protocol_app_min_send():
-    print('protocol')
+    decode_json_config(module_config, 'servers', 'add')
+    decode_json_config(infastructure_excludes, 'excludes', 'remove')
+    print('port_list:')
+    app_packets_received = 0
+    for port in port_list:
+        print(port)
+        tcpdump_filter = 'tcpdump -v port {p} -r {c}'.format(p=port, c=cap_pcap_file)
+        shell_result = shell_command_with_result(tcpdump_filter, 0, False)
+        app_packets_received += packets_received_count(shell_result)
+    if app_packets_received > 0:
+        add_summary("Application packets received.\n")
+        add_packet_info_to_report(app_packets_received, packet_request_list)
+        return 'pass'
+    else:
+        return 'fail'
 
 def test_communication_type():
     shell_result = shell_command_with_result(tcpdump_display_broadcast_packets, 0, False)
@@ -127,8 +172,11 @@ elif test_request == 'connection.dhcp_long':
     write_report("{d}\n{b}".format(b=dash_break_line, d=description_dhcp_long))
     result = test_connection_dhcp_long()
 elif test_request == 'protocol.app_min_send':
-    write_report("{d}\n{b}".format(b=dash_break_line, d=description_app_min_send))
-    result = test_protocol_app_min_send()
+    if protocol_app_min_send_mode:
+        write_report("{d}\n{b}".format(b=dash_break_line, d=description_app_min_send))
+        result = test_protocol_app_min_send()
+    else:
+        print('protocol_app_min_send_mode OFF')
 elif test_request == 'communication.type':
     write_report("{d}\n{b}".format(b=dash_break_line, d=description_communication_type))
     result = test_communication_type()
