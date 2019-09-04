@@ -156,7 +156,7 @@ def test_communication_type():
     shell_result = shell_command_with_result(tcpdump_display_all_packets, 0, False)
     all_packets_received = packets_received_count(shell_result)
     if (all_packets_received - broadcast_packets_received - multicast_packets_received) > 0:
-        add_summary("Packets packets received.\n")
+        add_summary("Unicast packets received.\n")
     return 'info'
 
 def add_summary(text):
