@@ -37,6 +37,8 @@ else
     fgrep "$TARGET" $TMPOUT
 fi
 
+# TODO: doesn't include a short summary in RESULT_AND_SUMMARY yet!
+
 VERSION_LOG=$(cat tmp/BacnetVersionTest_APPENDIX.txt)
 VERSION_RESULT_AND_SUMMARY=$(cat tmp/BacnetVersionTestReport.txt)
 
