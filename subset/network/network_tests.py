@@ -6,9 +6,7 @@ test_request = str(arguments[1])
 cap_pcap_file = str(arguments[2])
 device_address = str(arguments[3])
 
-protocol_app_min_send_mode = len(arguments) > 4
-
-if protocol_app_min_send_mode:
+if test_request == 'protocol.app_min_send':
     module_config = str(arguments[4])
     infastructure_excludes = str(arguments[5])
 
@@ -25,14 +23,15 @@ description_min_send = 'Device sends data at a frequency of less than 5 minutes.
 description_dhcp_long = 'Device sends ARP request on DHCP lease expiry.'
 description_app_min_send = 'Device sends apllication packets at a frequency of less than 5 minutes.'
 description_communication_type = 'Device sends unicast, multicast or broadcast packets.'
+description_ntp_support = 'Device sends NTP request packets.'
 
 tcpdump_display_all_packets = 'tcpdump -n src host ' + device_address + ' -r ' + cap_pcap_file
-tcpdump_display_udp_bacnet_packets = 'tcpdump -n udp dst portrange 47808-47809 ' + cap_pcap_file
-tcpdump_display_arp_packets = 'tcpdump -v arp -r ' + cap_pcap_file
+tcpdump_display_udp_bacnet_packets = 'tcpdump -n udp dst portrange 47808-47809 -r ' + cap_pcap_file
+tcpdump_display_arp_packets = 'tcpdump arp -r ' + cap_pcap_file
 tcpdump_display_ntp_packets = 'tcpdump dst port 123 -r ' + cap_pcap_file
-tcpdump_display_eapol_packets = 'tcpdump port 1812 or port 1813 or port 3799 ' + cap_pcap_file
-tcpdump_display_broadcast_packets = 'tcpdump -v broadcast -r ' + cap_pcap_file
-tcpdump_display_multicast_packets = 'tcpdump -v multicast -r ' + cap_pcap_file
+tcpdump_display_eapol_packets = 'tcpdump port 1812 or port 1813 or port 3799 -r ' + cap_pcap_file
+tcpdump_display_broadcast_packets = 'tcpdump broadcast -r ' + cap_pcap_file
+tcpdump_display_multicast_packets = 'tcpdump multicast -r ' + cap_pcap_file
 
 def write_report(string_to_append):
     with open(report_filename, 'a+') as file_open:
@@ -134,7 +133,7 @@ def test_protocol_app_min_send():
     app_packets_received = 0
     for port in port_list:
         print(port)
-        tcpdump_filter = 'tcpdump -v port {p} -r {c}'.format(p=port, c=cap_pcap_file)
+        tcpdump_filter = 'tcpdump port {p} -r {c}'.format(p=port, c=cap_pcap_file)
         shell_result = shell_command_with_result(tcpdump_filter, 0, False)
         app_packets_received += packets_received_count(shell_result)
     if app_packets_received > 0:
@@ -159,6 +158,16 @@ def test_communication_type():
         add_summary("Unicast packets received.\n")
     return 'info'
 
+def test_ntp_support():
+    shell_result = shell_command_with_result(tcpdump_display_ntp_packets, 0, False)
+    ntp_packets_received = packets_received_count(shell_result)
+    if ntp_packets_received > 0:
+        add_summary("NTP packets received.\n")
+        add_packet_info_to_report(ntp_packets_received, packet_request_list)
+        return 'pass'
+    else:
+        return 'fail'
+
 def add_summary(text):
     global summary
     summary += text
@@ -172,13 +181,13 @@ elif test_request == 'connection.dhcp_long':
     write_report("{d}\n{b}".format(b=dash_break_line, d=description_dhcp_long))
     result = test_connection_dhcp_long()
 elif test_request == 'protocol.app_min_send':
-    if protocol_app_min_send_mode:
-        write_report("{d}\n{b}".format(b=dash_break_line, d=description_app_min_send))
-        result = test_protocol_app_min_send()
-    else:
-        print('protocol_app_min_send_mode OFF')
+    write_report("{d}\n{b}".format(b=dash_break_line, d=description_app_min_send))
+    result = test_protocol_app_min_send()
 elif test_request == 'communication.type':
     write_report("{d}\n{b}".format(b=dash_break_line, d=description_communication_type))
     result = test_communication_type()
+elif test_request == 'network.ntp.support':
+    write_report("{d}\n{b}".format(b=dash_break_line, d=description_ntp_support))
+    result = test_ntp_support()
 
 write_report("RESULT {r} {t} {s}\n".format(r=result, t=test_request, s=summary))

@@ -1,0 +1,18 @@
+--------------------
+protocol.app_min_send
+--------------------
+Device sends apllication packets at a frequency of less than 5 minutes.
+--------------------
+%% 14:01:56.527854 IP pegasus.mshome.net.46006 > api.snapcraft.io.https: Flags [.], ack 218543516, win 501, options [nop,nop,TS val 3829595536 ecr 744196066], length 0
+%% 14:01:56.533456 IP api.snapcraft.io.https > pegasus.mshome.net.46006: Flags [.], ack 1, win 277, options [nop,nop,TS val 744203674 ecr 3829565152], length 0
+%% 14:02:16.098476 IP api.snapcraft.io.https > pegasus.mshome.net.46006: Flags [F.], seq 32, ack 1, win 277, options [nop,nop,TS val 744208565 ecr 3829565152], length 0
+%% 14:02:16.098520 IP pegasus.mshome.net.46006 > api.snapcraft.io.https: Flags [.], ack 1, win 501, options [nop,nop,TS val 3829615107 ecr 744203674,nop,nop,sack 1 {32:33}], length 0
+%% 14:02:16.098530 IP api.snapcraft.io.https > pegasus.mshome.net.46006: Flags [P.], seq 1:32, ack 1, win 277, options [nop,nop,TS val 744208565 ecr 3829565152], length 31
+%% 14:02:16.098558 IP pegasus.mshome.net.46006 > api.snapcraft.io.https: Flags [.], ack 33, win 501, options [nop,nop,TS val 3829615107 ecr 744208565], length 0
+%% 14:02:16.098722 IP pegasus.mshome.net.46006 > api.snapcraft.io.https: Flags [P.], seq 1:32, ack 33, win 501, options [nop,nop,TS val 3829615107 ecr 744208565], length 31
+%% 14:02:16.098754 IP pegasus.mshome.net.46006 > api.snapcraft.io.https: Flags [F.], seq 32, ack 33, win 501, options [nop,nop,TS val 3829615107 ecr 744208565], length 0
+%% 14:02:16.106298 IP api.snapcraft.io.https > pegasus.mshome.net.46006: Flags [R], seq 218543548, win 0, length 0
+%% 14:02:24.538069 IP pegasus.mshome.net.50108 > 151.101.194.49.https: Flags [S], seq 3532429863, win 64240, options [mss 1460,sackOK,TS val 976798006 ecr 0,nop,wscale 7], length 0
+%% packets_count=267
+RESULT pass protocol.app_min_send Application packets received.
+
