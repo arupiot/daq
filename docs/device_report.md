@@ -11,8 +11,8 @@
 
 | Test             |                        |
 |------------------|------------------------|
-| Test report start date | 2019-09-03 15:46:43+00:00 |
-| Test report end date   | 2019-09-03 15:58:53+00:00 |
+| Test report start date | 2019-09-09 15:28:52+00:00 |
+| Test report end date   | 2019-09-09 15:41:11+00:00 |
 | DAQ version      | 1.0.1 |
 | Attempt number   | 1 |
 
@@ -52,17 +52,18 @@ Overall device result FAIL
 |Other|1/2|
 |Connectivity|n/a|
 
-|Expectation|pass|fail|skip|gone|
-|---|---|---|---|---|
-|Required|1|1|0|0|
-|Recommended|1|0|0|0|
-|Other|1|2|13|2|
+|Expectation|pass|fail|skip|info|gone|
+|---|---|---|---|---|---|
+|Required|1|1|0|0|0|
+|Recommended|1|0|0|0|0|
+|Other|1|4|13|1|2|
 
 |Result|Test|Category|Expectation|Notes|
 |---|---|---|---|---|
 |skip|base.switch.ping|Other|Other||
 |pass|base.target.ping|Connectivity|Required|target|
 |skip|cloud.udmi.pointset|Other|Other|No device id.|
+|info|communication.type|Other|Other|Multicast packets received.|
 |pass|connection.dhcp_long|Other|Other|ARP packets received.|
 |fail|connection.mac_oui|Other|Other||
 |fail|connection.min_send|Other|Other|ARP packets received. Packets received.|
@@ -70,9 +71,11 @@ Overall device result FAIL
 |skip|connection.port_link|Other|Other||
 |skip|connection.port_speed|Other|Other||
 |fail|network.brute|Security|Required||
+|fail|network.ntp.support|Other|Other||
 |skip|poe.negotiation|Other|Other||
 |skip|poe.power|Other|Other||
 |skip|poe.support|Other|Other||
+|fail|protocol.app_min_send|Other|Other||
 |skip|protocol.bacnet.pic|Other|Other|Bacnet device not found... Pics check cannot be performed.|
 |skip|protocol.bacnet.version|Other|Other|Bacnet device not found.|
 |skip|security.firmware|Other|Other|Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered|
@@ -87,9 +90,9 @@ Overall device result FAIL
 
 ```
 Baseline ping test report
-%% 72 packets captured.
+%% 82 packets captured.
 RESULT skip base.switch.ping
-RESULT pass base.target.ping target %% 10.20.67.164
+RESULT pass base.target.ping target %% 10.20.58.164
 ```
 
 ## Module nmap
@@ -173,17 +176,14 @@ connection.dhcp_long
 --------------------
 Device sends ARP request on DHCP lease expiry.
 --------------------
-%% 15:47:45.986228 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 15:47:45.987176 ARP, Ethernet (len 6), IPv4 (len 4), Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
-%% 15:47:45.989265 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% 15:47:45.989318 ARP, Ethernet (len 6), IPv4 (len 4), Reply 10.0.0.1 is-at e2:de:14:a9:e7:b8 (oui Unknown), length 28
-%% 15:48:32.321845 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 15:48:32.322851 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% 15:48:32.322919 ARP, Ethernet (len 6), IPv4 (len 4), Reply 10.0.0.1 is-at e2:de:14:a9:e7:b8 (oui Unknown), length 28
-%% 15:48:32.323011 ARP, Ethernet (len 6), IPv4 (len 4), Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
-%% 15:52:03.009778 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 15:52:03.010211 ARP, Ethernet (len 6), IPv4 (len 4), Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% packets_count=13
+%% 15:30:55.866173 ARP, Request who-has 10.0.0.3 tell daq-faux-1, length 28
+%% 15:30:55.866287 ARP, Reply 10.0.0.3 is-at 72:c1:43:a1:28:0c (oui Unknown), length 28
+%% 15:34:29.882413 ARP, Request who-has daq-faux-1 tell 10.0.0.3, length 28
+%% 15:34:29.882564 ARP, Request who-has 10.0.0.3 tell daq-faux-1, length 28
+%% 15:34:29.882598 ARP, Reply 10.0.0.3 is-at 72:c1:43:a1:28:0c (oui Unknown), length 28
+%% 15:34:29.882723 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 
+%% packets_count=7
 RESULT pass connection.dhcp_long ARP packets received.
 
 --------------------
@@ -193,6 +193,24 @@ Device sends data at a frequency of less than 5 minutes.
 --------------------
 RESULT fail connection.min_send ARP packets received. Packets received.
 
+--------------------
+communication.type
+--------------------
+Device sends unicast, multicast or broadcast packets.
+--------------------
+RESULT info communication.type Multicast packets received. 
+--------------------
+protocol.app_min_send
+--------------------
+Device sends apllication packets at a frequency of less than 5 minutes.
+--------------------
+RESULT fail protocol.app_min_send 
+--------------------
+network.ntp.support
+--------------------
+Device sends NTP request packets.
+--------------------
+RESULT fail network.ntp.support 
 ```
 
 ## Report complete
