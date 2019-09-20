@@ -62,7 +62,7 @@ Overall device result FAIL
 |---|---|---|---|---|
 |skip|base.switch.ping|Other|Other||
 |pass|base.target.ping|Connectivity|Required|target|
-|skip|cloud.udmi.pointset|Other|Other|No device id.|
+|skip|cloud.udmi.pointset|Other|Other|No device id|
 |fail|connection.mac_oui|Other|Other||
 |skip|connection.port_duplex|Other|Other|No local IP|
 |skip|connection.port_link|Other|Other|No local IP|
@@ -71,7 +71,7 @@ Overall device result FAIL
 |skip|poe.negotiation|Other|Other|No local IP|
 |skip|poe.power|Other|Other|No local IP|
 |skip|poe.support|Other|Other|No local IP|
-|skip|protocol.bacnet.pic|Other|Other|Bacnet device not found... Pics check cannot be performed.|
+|skip|protocol.bacnet.pic|Other|Other|Bacnet device not found.|
 |skip|protocol.bacnet.version|Other|Other|Bacnet device not found.|
 |skip|security.firmware|Other|Other|Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered|
 |pass|security.ports.nmap|Security|Recommended||
