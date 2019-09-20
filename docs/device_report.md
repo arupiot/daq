@@ -62,7 +62,7 @@ Overall device result FAIL
 |---|---|---|---|---|
 |skip|base.switch.ping|Other|Other||
 |pass|base.target.ping|Connectivity|Required|target|
-|skip|cloud.udmi.pointset|Other|Other|No device id.|
+|skip|cloud.udmi.pointset|Other|Other|No device id|
 |fail|connection.mac_oui|Other|Other||
 |skip|connection.port_duplex|Other|Other|No local IP|
 |skip|connection.port_link|Other|Other|No local IP|
