@@ -118,7 +118,6 @@ Automatic bacnet firmware scan using nmap
 PORT      STATE  SERVICE
 47808/udp closed bacnet
 MAC Address: 9A:02:57:1E:8F:01 (Unknown)
-Firmware test complete
 --------------------
 RESULT skip security.firmware Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered
 
@@ -193,8 +192,24 @@ RESULT fail connection.mac_oui
 ## Module bacext
 
 ```
+--------------------
+protocol.bacnet.version
+--------------------
+Insitu Verify and record version of Bacnet used by the device
+--------------------
+ Bacnet device not found.
+--------------------
 RESULT skip protocol.bacnet.version Bacnet device not found.
-RESULT skip protocol.bacnet.pic Bacnet device not found... Pics check cannot be performed.
+
+--------------------
+protocol.bacnet.pic
+--------------------
+Verify BACnet traffic is compliant to the PIC statement
+--------------------
+ Bacnet device not found... Pics check cannot be performed.
+--------------------
+RESULT skip protocol.bacnet.pic Bacnet device not found.
+
 ```
 
 ## Module tls
