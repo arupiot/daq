@@ -9,7 +9,7 @@ Extended tests
 RESULT skip protocol.bacnet.version Bacnet device not found.
 RESULT skip protocol.bacnet.pic Bacnet device not found.
 RESULT info protocol.bacnet.version Protocol version: 1
-RESULT fail protocol.bacnet.pic
+RESULT fail protocol.bacnet.pic The device does not match the PICS
 RESULT info protocol.bacnet.version Protocol version: 1
 RESULT pass protocol.bacnet.pic
 RESULT fail network.brute
