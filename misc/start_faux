@@ -89,6 +89,11 @@ elif [ -n "${options[bacnetfail]}" ]; then
          FauxDeviceEngine.EntryPoint $local_ip $broadcast_ip "Faux-Device-Fail.json"  &
 fi
 
+if [ -n "${options[ntp_client]}" ]; then
+    echo Starting ntp client.
+    java -jar NTPClient/build/libs/NTPClient-1.0-SNAPSHOT-all.jar "time.google.com" "123" "3"
+fi
+
 if [ -n "${options[discover]}" ]; then
     echo Starting bacnet discover loop.
     bin/bacnet_discover loop &
