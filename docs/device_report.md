@@ -11,8 +11,8 @@
 
 | Test             |                        |
 |------------------|------------------------|
-| Test report start date | 2019-09-09 15:28:52+00:00 |
-| Test report end date   | 2019-09-09 15:41:11+00:00 |
+| Test report start date | 2019-09-24 09:44:03+00:00 |
+| Test report end date   | 2019-09-24 09:56:35+00:00 |
 | DAQ version      | 1.0.1 |
 | Attempt number   | 1 |
 
@@ -62,19 +62,19 @@ Overall device result FAIL
 |---|---|---|---|---|
 |skip|base.switch.ping|Other|Other||
 |pass|base.target.ping|Connectivity|Required|target|
-|skip|cloud.udmi.pointset|Other|Other|No device id.|
+|skip|cloud.udmi.pointset|Other|Other|No device id|
 |info|communication.type|Other|Other|Multicast packets received.|
 |pass|connection.dhcp_long|Other|Other|ARP packets received.|
 |fail|connection.mac_oui|Other|Other||
 |fail|connection.min_send|Other|Other|ARP packets received. Packets received.|
-|skip|connection.port_duplex|Other|Other||
-|skip|connection.port_link|Other|Other||
-|skip|connection.port_speed|Other|Other||
+|skip|connection.port_duplex|Other|Other|No local IP|
+|skip|connection.port_link|Other|Other|No local IP|
+|skip|connection.port_speed|Other|Other|No local IP|
 |fail|network.brute|Security|Required||
 |fail|network.ntp.support|Other|Other||
-|skip|poe.negotiation|Other|Other||
-|skip|poe.power|Other|Other||
-|skip|poe.support|Other|Other||
+|skip|poe.negotiation|Other|Other|No local IP|
+|skip|poe.power|Other|Other|No local IP|
+|skip|poe.support|Other|Other|No local IP|
 |fail|protocol.app_min_send|Other|Other||
 |skip|protocol.bacnet.pic|Other|Other|Bacnet device not found... Pics check cannot be performed.|
 |skip|protocol.bacnet.version|Other|Other|Bacnet device not found.|
@@ -92,7 +92,7 @@ Overall device result FAIL
 Baseline ping test report
 %% 82 packets captured.
 RESULT skip base.switch.ping
-RESULT pass base.target.ping target %% 10.20.58.164
+RESULT pass base.target.ping target %% 10.20.87.164
 ```
 
 ## Module nmap
@@ -231,14 +231,16 @@ connection.dhcp_long
 --------------------
 Device sends ARP request on DHCP lease expiry.
 --------------------
-%% 15:30:55.866173 ARP, Request who-has 10.0.0.3 tell daq-faux-1, length 28
-%% 15:30:55.866287 ARP, Reply 10.0.0.3 is-at 72:c1:43:a1:28:0c (oui Unknown), length 28
-%% 15:34:29.882413 ARP, Request who-has daq-faux-1 tell 10.0.0.3, length 28
-%% 15:34:29.882564 ARP, Request who-has 10.0.0.3 tell daq-faux-1, length 28
-%% 15:34:29.882598 ARP, Reply 10.0.0.3 is-at 72:c1:43:a1:28:0c (oui Unknown), length 28
-%% 15:34:29.882723 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 09:46:02.081132 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
+%% 09:46:02.081211 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
+%% 09:46:02.081219 ARP, Reply 10.0.0.1 is-at 42:66:ad:4e:42:f4 (oui Unknown), length 28
+%% 09:46:02.081293 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 09:49:13.824795 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
+%% 09:49:13.824938 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
+%% 09:49:13.824953 ARP, Reply 10.0.0.1 is-at 42:66:ad:4e:42:f4 (oui Unknown), length 28
+%% 09:49:13.825118 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
 %% 
-%% packets_count=7
+%% packets_count=9
 RESULT pass connection.dhcp_long ARP packets received.
 
 --------------------
