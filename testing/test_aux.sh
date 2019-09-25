@@ -37,7 +37,7 @@ function make_pubber {
 EOF
 }
 
-function capture_aux_test_log {
+function capture_aux_test_results {
     module_name=$1
     test_name=$2
     fgrep -h RESULT inst/run-port-*/nodes/$module_name*/tmp/report.txt | tee -a $TEST_RESULTS
@@ -61,30 +61,21 @@ startup_faux_2_opts="nobrute expiredtls bacnetfail pubber"
 startup_faux_3_opts="tls macoui bacnet pubber"
 EOF
 
-# If we have GCP credentials wherever we're running the test,
-# make pubbers.
-
-cloud_file=inst/test_site/cloud_iot_config.json
-cred_file=inst/config/gcp_service_account.json
-mkdir -p inst/config
-if [ -n "$GCP_SERVICE_ACCOUNT" ]; then
-    echo Installing GCP_SERVICE_ACCOUNT to gcp_cred=$cred_file
-    echo "$GCP_SERVICE_ACCOUNT" > $cred_file
-    echo gcp_cred=$cred_file >> local/system.conf
-elif [ -f $cred_file ]; then
-    echo Using previously configured $cred_file
-    echo gcp_cred=$cred_file >> local/system.conf
-fi
-
 if [ -f $cred_file ]; then
+    echo Using credentials from $cred_file
+    echo gcp_cred=$cred_file >> local/system.conf
     project_id=`jq .project_id $cred_file`
+
+    cloud_file=inst/test_site/cloud_iot_config.json
+    echo Pulling cloud iot details from $cloud_file...
     registry_id=`jq .registry_id $cloud_file`
     cloud_region=`jq .cloud_region $cloud_file`
+
     make_pubber AHU-1 daq-faux-2 null
     make_pubber SNS-4 daq-faux-3 1234
 else
-    echo No GCP_SERVICE_ACCOUNT cred defined.
-    echo This variable should be defined in your online travis config.
+    echo No gcp service account defined, as required for cloud-based tests.
+    echo Please check install/setup documentation to enable.
 fi
 
 more inst/faux/daq-faux-*/local/pubber.json | cat
@@ -96,11 +87,11 @@ cmd/run -b -s
 
 # Add just the RESULT lines from all aux tests (from all ports, 3 in this case) into a file
 # These ARE the auxiliary tests
-capture_aux_test_log bacext all
-capture_aux_test_log brute all
-capture_aux_test_log macoui all
-capture_aux_test_log tls all
-capture_aux_test_log discover all
+capture_aux_test_results bacext all
+capture_aux_test_results brute all
+capture_aux_test_results macoui all
+capture_aux_test_results tls all
+capture_aux_test_results discover all
 
 # Capture peripheral logs
 more inst/run-port-*/scans/dhcp_triggers.txt | cat

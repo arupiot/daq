@@ -133,6 +133,8 @@ if [ -n "${options[tls]}" ]; then
     echo Generating tls certs.
     python tlsfaux/generate_certs.py
     echo Starting tls server on port 443 https.
+    sed -i '15s/.*/        ssl_certificate    tlsfaux/certs/server.crt' webserver/nginx/nginx.conf
+    sed -i '16s/.*        ssl_certificate_key tlsfaux/certs/server.key' webserver/nginx/nginx.conf
     python tlsfaux/server.py certs &
 elif [ -n "${options[expiredtls]}" ]; then
     echo Starting expired tls server on port 443 https.

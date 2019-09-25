@@ -7,9 +7,10 @@ FROM daq/aardvark:latest as java_build
 
 # Run this separately so it can be shared with other builds.
 RUN $AG update && $AG install openjdk-8-jre
-
+RUN $AG update && $AG install python3-pip
 RUN $AG update && $AG install openjdk-8-jdk git
 
+RUN $AG update && $AG install curl
 ENV BACHASH=6abd3cfcfe6cfb95f444638515a0b21f547a1202
 
 RUN bin/retry_cmd git clone https://github.com/grafnu/bacnet4j.git --single-branch \
@@ -17,7 +18,6 @@ RUN bin/retry_cmd git clone https://github.com/grafnu/bacnet4j.git --single-bran
 
 COPY pubber/ pubber/
 RUN pubber/bin/build
-
 FROM daq/aardvark:latest
 
 #SSH ENV Settings
@@ -26,15 +26,30 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d
 
 # Run this separately so it can be shared with other builds.
 RUN $AG update && $AG install openjdk-8-jre
-
+RUN $AG update && $AG install curl
+RUN $AG install apt-transport-https ca-certificates curl software-properties-common
+RUN $AG update && $AG install gpg-agent
+RUN cp /etc/hosts ~/hosts.new
+RUN sed -i '1s/^/0.0.0.0 my-site.com \n/' ~/hosts.new
+RUN cp -f ~/hosts.new /etc/hosts
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+RUN $AG update
+RUN $AG install docker-ce
+RUN curl -L --fail "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
 RUN $AG update && $AG install isc-dhcp-client ethtool network-manager netcat curl\
     python ifupdown openssl ssh openssh-server
 
 # Prefetch resolvconf to dynamically install at runtime in start_faux.
 RUN $AG update && cd /tmp && ln -s ~/bin bin && $AG download resolvconf && mv resolvconf_*.deb ~
 
+#Telnet config
+RUN $AG update && $AG install -y telnetd
+RUN $AG update && $AG install xinetd
+
 #SSH set config
-COPY subset/security/brute_test/src/main/resources/ssh.config ssh.config
+COPY subset/security/ssh.config ssh.config
 RUN cat ssh.config >> /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login
@@ -42,18 +57,20 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
-#SSH Expose SSH Port 22
-EXPOSE 22
+#SSH Expose SSH Port 22 and Telnet Port 23
+EXPOSE 22 23
 
 COPY --from=java_build /root/bacnet4j/*.jar bacnet4j/
 COPY misc/bacnet_discover bin/
 
 COPY --from=java_build /root/pubber/build/libs/*.jar pubber/build/libs/
 COPY pubber/bin/run pubber/bin/
-
+COPY subset/security/webserver  webserver/
 COPY subset/pentests/brute_server.py pentests/
 COPY subset/security/tlsfaux tlsfaux/
 COPY misc/start_faux bin/
+RUN dockerd &
+#RUN docker-compose -f webserver/docker-compose.yaml up
 
 # Weird workaround for problem running tcdump in a privlidged container.
 RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
