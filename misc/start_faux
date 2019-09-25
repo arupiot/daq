@@ -45,6 +45,7 @@ if [ -n "${options[macoui]}" ]; then
 fi
 
 if [ -n "${options[passwordpass]}" ]; then
+    service nginx start
     new_mac=3c:5a:b4:1e:8f:0a
     set_mac_addrs $new_mac
     set_passwd 'root:pass'
@@ -52,6 +53,7 @@ if [ -n "${options[passwordpass]}" ]; then
 fi
 
 if [ -n "${options[passwordfail]}" ]; then
+    service nginx start
     set_passwd 'root:redstone'
     echo "pass\npass\n\n\n\n\n\ny\n" | adduser "admin"
     echo "admin:redstone" | chpasswd
@@ -133,8 +135,6 @@ if [ -n "${options[tls]}" ]; then
     echo Generating tls certs.
     python tlsfaux/generate_certs.py
     echo Starting tls server on port 443 https.
-    sed -i '15s/.*/        ssl_certificate    tlsfaux/certs/server.crt' webserver/nginx/nginx.conf
-    sed -i '16s/.*        ssl_certificate_key tlsfaux/certs/server.key' webserver/nginx/nginx.conf
     python tlsfaux/server.py certs &
 elif [ -n "${options[expiredtls]}" ]; then
     echo Starting expired tls server on port 443 https.
