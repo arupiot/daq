@@ -45,20 +45,19 @@ if [ -n "${options[macoui]}" ]; then
 fi
 
 if [ -n "${options[passwordpass]}" ]; then
-    service nginx start
     new_mac=3c:5a:b4:1e:8f:0a
     set_mac_addrs $new_mac
     set_passwd 'root:pass'
-    /usr/sbin/sshd -D &
 fi
 
 if [ -n "${options[passwordfail]}" ]; then
-    service nginx start
     set_passwd 'root:redstone'
     echo "pass\npass\n\n\n\n\n\ny\n" | adduser "admin"
     echo "admin:redstone" | chpasswd
-    /usr/sbin/sshd -D &
 fi
+
+/usr/sbin/sshd -D &
+
 
 # To capture all the data in/out of the faux device for debugging, uncomment
 # the following lines. The pcap file will end up in inst/faux/{hostname}.pcap
@@ -135,11 +134,16 @@ if [ -n "${options[tls]}" ]; then
     echo Generating tls certs.
     python tlsfaux/generate_certs.py
     echo Starting tls server on port 443 https.
-    python tlsfaux/server.py certs &
+  #  python tlsfaux/server.py certs &
+    mv /root/nginx/nginxpass.conf /etc/nginx/nginx.conf
 elif [ -n "${options[expiredtls]}" ]; then
     echo Starting expired tls server on port 443 https.
-    python tlsfaux/server.py expcerts &
+  #  python tlsfaux/server.py expcerts &
+    mv /root/nginx/nginxfail.conf /etc/nginx/nginx.conf
+  #  COPY /etc/nginxconf/nginxfail.conf /etc/nginx/nginx.conf
 fi
+
+service nginx start
 
 if [ -n "${options[pubber]}" ]; then
     echo Running cloud pubber tool...

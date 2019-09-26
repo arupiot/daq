@@ -28,28 +28,31 @@ RUN $AG update && $AG install isc-dhcp-client ethtool network-manager netcat cur
 # Prefetch resolvconf to dynamically install at runtime in start_faux.
 RUN $AG update && cd /tmp && ln -s ~/bin bin && $AG download resolvconf && mv resolvconf_*.deb ~
 
-#Telnet config
+#Telnet dependancy
 RUN $AG update && $AG install -y telnetd
 RUN $AG update && $AG install xinetd
 
-#SSH set config
+#SSH dependancy
 COPY subset/security/ssh.config ssh.config
 RUN cat ssh.config >> /etc/ssh/sshd_config
 
-#HTTP/HTTPS config
-
+#HTTP/HTTPS dependancy
 RUN $AG update && $AG install nginx
 COPY /subset/security/.htpasswd /etc/nginx/
+COPY /subset/security/nginxpass.conf /root/nginx/
+COPY /subset/security/nginxfail.conf /root/nginx/
 COPY /subset/security/nginx.conf /etc/nginx/
-COPY /subset/security/my-site.com /var/www/my-site.com
+
+
+COPY /subset/security/nginx-site /var/www/nginx-site
 
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
-#SSH Expose SSH Port 22 and Telnet Port 23
-EXPOSE 22 23 443 80
+#SSH Expose SSH Port 22 and Telnet Port 23 and Http Port 80 and Https Port 443
+EXPOSE 22 23 80 443
 
 COPY --from=java_build /root/bacnet4j/*.jar bacnet4j/
 COPY misc/bacnet_discover bin/
