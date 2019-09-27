@@ -39,8 +39,10 @@ RUN cat ssh.config >> /etc/ssh/sshd_config
 #HTTP/HTTPS dependancy
 RUN $AG update && $AG install nginx
 COPY /subset/security/.htpasswd /etc/nginx/
-COPY /subset/security/nginxpass.conf /root/nginx/
-COPY /subset/security/nginxfail.conf /root/nginx/
+COPY /subset/security/.htpasswdpass /root/nginx
+COPY /subset/security/.htpasswdfail /root/nginx
+COPY /subset/security/nginxpass.conf /root/nginx
+COPY /subset/security/nginxfail.conf /root/nginx
 COPY /subset/security/nginx.conf /etc/nginx/
 
 

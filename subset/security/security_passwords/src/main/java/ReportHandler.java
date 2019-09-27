@@ -11,6 +11,7 @@ public class ReportHandler {
 
     public ReportHandler(String protocol){
         this.protocol = protocol;
+	this.filePath = "reports/" + protocol + "_report.txt";
         addText("Protocol: " + protocol);
     }
 
@@ -19,9 +20,7 @@ public class ReportHandler {
     }
 
     public void writeReport(){
-
-
-        reportFile = new File(filePath);
+	reportFile = new File(filePath);
         try{
             reportFile.getParentFile().mkdirs();
             try(BufferedWriter writer = new BufferedWriter(new FileWriter(reportFile))){
