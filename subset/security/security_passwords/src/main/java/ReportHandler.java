@@ -5,14 +5,14 @@ import java.io.IOException;
 
 public class ReportHandler {
     private String protocol;
-    private String report = "security.passwords Test\n";
+    private String report = "";
     private String filePath = "reports/report.txt";
     File reportFile;
 
     public ReportHandler(String protocol){
         this.protocol = protocol;
 	this.filePath = "reports/" + protocol + "_report.txt";
-        addText("Protocol: " + protocol);
+        //addText("Protocol: " + protocol);
     }
 
     public void addText(String text){

@@ -1,3 +1,1 @@
-security.passwords Test
-Protocol: ssh
-security.passwords RESULT fail
+

@@ -24,11 +24,11 @@ public class RunTest {
                 }
             }
             if(foundCredentials){
-                reportHandler.addText("security.passwords RESULT fail");
+                reportHandler.addText("RESULT fail security.passwords Default password has not been changed");
                 reportHandler.writeReport();
             }
             else{
-                reportHandler.addText("security.passwords RESULT pass");
+                reportHandler.addText("RESULT pass security.passwords Default passwords have been changed");
                 reportHandler.writeReport();
             }
         }

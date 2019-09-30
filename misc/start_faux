@@ -45,21 +45,29 @@ if [ -n "${options[macoui]}" ]; then
 fi
 
 if [ -n "${options[passwordpass]}" ]; then
-    new_mac=3c:5a:b4:1e:8f:0a
+    new_mac=3c:5a:b4:1e:8f:0b
     set_mac_addrs $new_mac
     set_passwd 'root:pass'
-    mv /root/nginx/.htpasswdpass /etc/nginx/.htpasswd
+    mv /root/nginx_files/.htpasswdpass /etc/nginx/.htpasswd
+    /etc/init.d/openbsd-inetd restart
+    /etc/init.d/xinetd restart
+    /usr/sbin/sshd -D &
+    service ssh start
+
 fi
 
 if [ -n "${options[passwordfail]}" ]; then
     set_passwd 'root:redstone'
     echo "pass\npass\n\n\n\n\n\ny\n" | adduser "admin"
     echo "admin:redstone" | chpasswd
-    mv /root/nginx/.htpasswdfail /etc/nginx/.htpasswd
+    mv /root/nginx_files/.htpasswdfail /etc/nginx/.htpasswd
+    /etc/init.d/openbsd-inetd restart
+    /etc/init.d/xinetd restart
+    /usr/sbin/sshd -D &
+    service ssh start
+
+
 fi
-
-/usr/sbin/sshd -D &
-
 
 # To capture all the data in/out of the faux device for debugging, uncomment
 # the following lines. The pcap file will end up in inst/faux/{hostname}.pcap

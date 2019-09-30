@@ -63,7 +63,7 @@ public class SetupTest {
             getJsonFile(formattedMac);
         }
         catch(Exception e){
-           reportHandler.addText("security.passwords RESULT skip");
+           reportHandler.addText("RESULT skip security.passwords Device does not have a valid mac address");
            reportHandler.writeReport();
         }
     }
@@ -75,7 +75,15 @@ public class SetupTest {
         String jsonPasswords = manufacturer.get("Passwords").getAsString();
         usernames = jsonUsernames.split(",");
         passwords = jsonPasswords.split(",");
-        createConsoleCommand(usernames,passwords);
+        if(protocol.equals("ssh")){
+            RunSshTest runSshTest = new RunSshTest(usernames,passwords,hostAddress,port,reportHandler);
+            Thread sshThread = new Thread(runSshTest);
+            sshThread.start();
+        }
+        else{
+          createConsoleCommand(usernames,passwords);
+        }
+
     }
 
     public SetupTest(String protocol, String hostAddress, String port, String macAddress, String domain){
@@ -101,7 +109,7 @@ public class SetupTest {
         command = "ncrack ";
 
 
-        if(protocol.equals("https")){
+        if(protocol.equals("https") || protocol.equals("http")){
             command +=  domain + " ";
         }
 
