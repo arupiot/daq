@@ -58,7 +58,7 @@ test_config=misc/runtime_configs/long_wait
 site_path=inst/test_site
 startup_faux_1_opts="brute"
 startup_faux_2_opts="nobrute expiredtls bacnetfail pubber"
-startup_faux_3_opts="tls macoui bacnet pubber"
+startup_faux_3_opts="tls macoui bacnet pubber ntp_client broadcast_client multicast_client"
 monitor_scan_sec=300
 EOF
 
@@ -93,6 +93,7 @@ capture_aux_test_results brute all
 capture_aux_test_results macoui all
 capture_aux_test_results tls all
 capture_aux_test_results discover all
+capture_aux_test_results network all
 
 # Capture peripheral logs
 more inst/run-port-*/scans/dhcp_triggers.txt | cat

@@ -94,7 +94,7 @@ def decode_json_config(config_file, map_name, action):
     for key, value in dictionary.items():
         if key == map_name:
             for protocol, info in value.items():
-                if protocol == 'udp' or protocol == 'tcp':  
+                if protocol == 'udp' or protocol == 'tcp':
                     for ports, port_map in info.items():
                         if action == 'add':
                             add_to_port_list(port_map)
@@ -127,6 +127,8 @@ def test_connection_dhcp_long():
         return 'fail'
 
 def test_protocol_app_min_send():
+    #reads module_config json file and adds ports to port_list
+    #read infastructure_excludes json file and removes ports from port_list
     decode_json_config(module_config, 'servers', 'add')
     decode_json_config(infastructure_excludes, 'excludes', 'remove')
     print('port_list:')
