@@ -108,9 +108,8 @@ def test_connection_min_send():
         add_summary("ARP packets received. ")
     shell_result = shell_command_with_result(tcpdump_display_all_packets, 0, False)
     all_packets_received = packets_received_count(shell_result)
-    if all_packets_received > 0:
-        add_summary("Packets received.\n")
     if (all_packets_received - arp_packets_received) > 0:
+        add_summary("Packets received.\n")
         add_packet_info_to_report(arp_packets_received, packet_request_list)
         return 'pass'
     else:

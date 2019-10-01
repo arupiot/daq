@@ -56,9 +56,9 @@ cat <<EOF >> local/system.conf
 fail_hook=misc/dump_network.sh
 test_config=misc/runtime_configs/long_wait
 site_path=inst/test_site
-startup_faux_1_opts="brute"
+startup_faux_1_opts="brute broadcast_client multicast_client"
 startup_faux_2_opts="nobrute expiredtls bacnetfail pubber"
-startup_faux_3_opts="tls macoui bacnet pubber ntp_client broadcast_client multicast_client"
+startup_faux_3_opts="tls macoui bacnet pubber ntp_client"
 monitor_scan_sec=300
 EOF
 
