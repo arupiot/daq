@@ -27,19 +27,15 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d
 # Run this separately so it can be shared with other builds.
 RUN $AG update && $AG install openjdk-8-jre
 RUN $AG update && $AG install curl
-RUN $AG install apt-transport-https ca-certificates curl software-properties-common
-RUN $AG update && $AG install gpg-agent
-RUN cp /etc/hosts ~/hosts.new
-RUN sed -i '1s/^/0.0.0.0 my-site.com \n/' ~/hosts.new
-RUN cp -f ~/hosts.new /etc/hosts
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-RUN $AG update
-RUN $AG install docker-ce
-RUN curl -L --fail "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-RUN chmod +x /usr/local/bin/docker-compose
+RUN $AG update && $AG install openjdk-8-jdk git
 RUN $AG update && $AG install isc-dhcp-client ethtool network-manager netcat curl\
-    python ifupdown openssl ssh openssh-server
+    python ifupdown openssl ssh nano
+
+COPY subset/bacnet/bacnetTests/ bacnetTests
+COPY subset/bacnet/bacnetTests/src/main/resources/Faux*.json tmp/
+COPY --from=java_build /root/bacnet4j/bacnet4j-1.0-SNAPSHOT-all.jar bacnetTests/libs/
+RUN cd bacnetTests && ./gradlew build
+>>>>>>> upstream/master
 
 # Prefetch resolvconf to dynamically install at runtime in start_faux.
 RUN $AG update && cd /tmp && ln -s ~/bin bin && $AG download resolvconf && mv resolvconf_*.deb ~
@@ -68,9 +64,13 @@ COPY pubber/bin/run pubber/bin/
 COPY subset/security/webserver  webserver/
 COPY subset/pentests/brute_server.py pentests/
 COPY subset/security/tlsfaux tlsfaux/
-COPY misc/start_faux bin/
-RUN dockerd &
-#RUN docker-compose -f webserver/docker-compose.yaml up
+
+COPY subset/bacnet/bacnetTests/ bacnetTests
+COPY subset/bacnet/bacnetTests/src/main/resources/Faux*.json tmp/
+COPY --from=java_build /root/bacnet4j/bacnet4j-1.0-SNAPSHOT-all.jar bacnetTests/libs/
+RUN cd bacnetTests && ./gradlew build
+
+COPY misc/start_faux misc/failing bin/
 
 # Weird workaround for problem running tcdump in a privlidged container.
 RUN mv /usr/sbin/tcpdump /usr/bin/tcpdump
