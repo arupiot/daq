@@ -11,8 +11,8 @@
 
 | Test             |                        |
 |------------------|------------------------|
-| Test report start date | 2019-09-24 09:44:03+00:00 |
-| Test report end date   | 2019-09-24 09:56:35+00:00 |
+| Test report start date | 2019-10-01 09:49:40+00:00 |
+| Test report end date   | 2019-10-01 10:02:26+00:00 |
 | DAQ version      | 1.0.1 |
 | Attempt number   | 1 |
 
@@ -66,7 +66,7 @@ Overall device result FAIL
 |info|communication.type|Other|Other|Multicast packets received.|
 |pass|connection.dhcp_long|Other|Other|ARP packets received.|
 |fail|connection.mac_oui|Other|Other||
-|fail|connection.min_send|Other|Other|ARP packets received. Packets received.|
+|fail|connection.min_send|Other|Other|ARP packets received.|
 |skip|connection.port_duplex|Other|Other|No local IP|
 |skip|connection.port_link|Other|Other|No local IP|
 |skip|connection.port_speed|Other|Other|No local IP|
@@ -90,9 +90,9 @@ Overall device result FAIL
 
 ```
 Baseline ping test report
-%% 82 packets captured.
+%% 75 packets captured.
 RESULT skip base.switch.ping
-RESULT pass base.target.ping target %% 10.20.87.164
+RESULT pass base.target.ping target %% 10.20.65.164
 ```
 
 ## Module nmap
@@ -231,16 +231,17 @@ connection.dhcp_long
 --------------------
 Device sends ARP request on DHCP lease expiry.
 --------------------
-%% 09:46:02.081132 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 09:46:02.081211 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% 09:46:02.081219 ARP, Reply 10.0.0.1 is-at 42:66:ad:4e:42:f4 (oui Unknown), length 28
-%% 09:46:02.081293 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
-%% 09:49:13.824795 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 09:49:13.824938 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% 09:49:13.824953 ARP, Reply 10.0.0.1 is-at 42:66:ad:4e:42:f4 (oui Unknown), length 28
-%% 09:49:13.825118 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
-%% 
-%% packets_count=9
+%% 09:50:51.622861 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
+%% 09:50:51.622941 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
+%% 09:50:51.622948 ARP, Reply 10.0.0.1 is-at aa:96:6e:dc:e1:36 (oui Unknown), length 28
+%% 09:50:51.623103 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 09:51:37.702931 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
+%% 09:51:37.703043 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
+%% 09:51:37.703054 ARP, Reply 10.0.0.1 is-at aa:96:6e:dc:e1:36 (oui Unknown), length 28
+%% 09:51:37.703174 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 09:55:07.110822 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
+%% 09:55:07.111002 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
+%% packets_count=13
 RESULT pass connection.dhcp_long ARP packets received.
 
 --------------------
@@ -248,8 +249,7 @@ connection.min_send
 --------------------
 Device sends data at a frequency of less than 5 minutes.
 --------------------
-RESULT fail connection.min_send ARP packets received. Packets received.
-
+RESULT fail connection.min_send ARP packets received. 
 --------------------
 communication.type
 --------------------
