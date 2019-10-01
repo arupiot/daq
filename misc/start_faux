@@ -159,5 +159,9 @@ intf_name= $intf_name
 conf_file= $conf_file
 EOF
 
+if [ -n "${options[destroy_network]}" ]; then
+    #ifconfig faux-eth0 down
+fi
+
 echo Blocking for all eternety.
 tail -f /dev/null

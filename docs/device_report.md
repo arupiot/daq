@@ -11,8 +11,8 @@
 
 | Test             |                        |
 |------------------|------------------------|
-| Test report start date | 2019-10-01 09:49:40+00:00 |
-| Test report end date   | 2019-10-01 10:02:26+00:00 |
+| Test report start date | 2019-10-01 11:34:31+00:00 |
+| Test report end date   | 2019-10-01 11:46:13+00:00 |
 | DAQ version      | 1.0.1 |
 | Attempt number   | 1 |
 
@@ -56,17 +56,17 @@ Overall device result FAIL
 |---|---|---|---|---|---|
 |Required|1|1|0|0|0|
 |Recommended|1|0|0|0|0|
-|Other|1|4|13|1|2|
+|Other|2|3|13|1|2|
 
 |Result|Test|Category|Expectation|Notes|
 |---|---|---|---|---|
 |skip|base.switch.ping|Other|Other||
 |pass|base.target.ping|Connectivity|Required|target|
 |skip|cloud.udmi.pointset|Other|Other|No device id|
-|info|communication.type|Other|Other|Multicast packets received.|
+|info|communication.type|Other|Other|Broadcast packets received. Multicast packets received.|
 |pass|connection.dhcp_long|Other|Other|ARP packets received.|
 |fail|connection.mac_oui|Other|Other||
-|fail|connection.min_send|Other|Other|ARP packets received.|
+|pass|connection.min_send|Other|Other|ARP packets received. Packets received.|
 |skip|connection.port_duplex|Other|Other|No local IP|
 |skip|connection.port_link|Other|Other|No local IP|
 |skip|connection.port_speed|Other|Other|No local IP|
@@ -90,9 +90,9 @@ Overall device result FAIL
 
 ```
 Baseline ping test report
-%% 75 packets captured.
+%% 69 packets captured.
 RESULT skip base.switch.ping
-RESULT pass base.target.ping target %% 10.20.65.164
+RESULT pass base.target.ping target %% 10.20.28.164
 ```
 
 ## Module nmap
@@ -231,17 +231,17 @@ connection.dhcp_long
 --------------------
 Device sends ARP request on DHCP lease expiry.
 --------------------
-%% 09:50:51.622861 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 09:50:51.622941 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% 09:50:51.622948 ARP, Reply 10.0.0.1 is-at aa:96:6e:dc:e1:36 (oui Unknown), length 28
-%% 09:50:51.623103 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
-%% 09:51:37.702931 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 09:51:37.703043 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% 09:51:37.703054 ARP, Reply 10.0.0.1 is-at aa:96:6e:dc:e1:36 (oui Unknown), length 28
-%% 09:51:37.703174 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
-%% 09:55:07.110822 ARP, Request who-has daq-faux-1 tell 10.0.0.1, length 28
-%% 09:55:07.111002 ARP, Request who-has 10.0.0.1 tell daq-faux-1, length 28
-%% packets_count=13
+%% 11:34:59.302582 ARP, Request who-has daq-faux-1 tell 10.0.0.5, length 28
+%% 11:34:59.302797 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 11:35:47.174991 ARP, Request who-has daq-faux-1 tell 10.0.0.5, length 28
+%% 11:35:47.175073 ARP, Request who-has 10.0.0.5 tell daq-faux-1, length 28
+%% 11:35:47.175082 ARP, Reply 10.0.0.5 is-at 4e:fc:27:e2:aa:20 (oui Unknown), length 28
+%% 11:35:47.175729 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 11:39:11.974982 ARP, Request who-has daq-faux-1 tell 10.0.0.5, length 28
+%% 11:39:11.975118 ARP, Request who-has 10.0.0.5 tell daq-faux-1, length 28
+%% 11:39:11.975132 ARP, Reply 10.0.0.5 is-at 4e:fc:27:e2:aa:20 (oui Unknown), length 28
+%% 11:39:11.975504 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% packets_count=11
 RESULT pass connection.dhcp_long ARP packets received.
 
 --------------------
@@ -249,13 +249,25 @@ connection.min_send
 --------------------
 Device sends data at a frequency of less than 5 minutes.
 --------------------
-RESULT fail connection.min_send ARP packets received. 
+%% 11:34:59.302797 ARP, Reply 10.20.28.164 is-at 9a:02:57:1e:8f:01, length 28
+%% 11:35:04.262545 IP 10.20.28.164.41755 > 224.1.1.1.47808: UDP, length 32
+%% 11:35:04.272438 IP 10.20.28.164.35514 > 10.255.255.255.47808: UDP, length 32
+%% 11:35:14.271831 IP 10.20.28.164.58132 > 224.1.1.1.47808: UDP, length 32
+%% 11:35:14.282693 IP 10.20.28.164.49656 > 10.255.255.255.47808: UDP, length 32
+%% 11:35:24.273896 IP 10.20.28.164.55710 > 224.1.1.1.47808: UDP, length 32
+%% 11:35:24.291605 IP 10.20.28.164.32946 > 10.255.255.255.47808: UDP, length 32
+%% 11:35:34.275039 IP 10.20.28.164.39452 > 224.1.1.1.47808: UDP, length 32
+%% 11:35:34.294207 IP 10.20.28.164.43395 > 10.255.255.255.47808: UDP, length 32
+%% 11:35:41.978317 IP 10.20.28.164.68 > 10.0.0.5.67: BOOTP/DHCP, Request from 9a:02:57:1e:8f:01, length 300
+%% packets_count=11
+RESULT pass connection.min_send ARP packets received. Packets received.
+
 --------------------
 communication.type
 --------------------
 Device sends unicast, multicast or broadcast packets.
 --------------------
-RESULT info communication.type Multicast packets received. 
+RESULT info communication.type Broadcast packets received. Multicast packets received. 
 --------------------
 protocol.app_min_send
 --------------------
