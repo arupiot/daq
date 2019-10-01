@@ -11,8 +11,8 @@
 
 | Test             |                        |
 |------------------|------------------------|
-| Test report start date | 2019-10-01 11:34:31+00:00 |
-| Test report end date   | 2019-10-01 11:46:13+00:00 |
+| Test report start date | 2019-10-01 16:22:09+00:00 |
+| Test report end date   | 2019-10-01 16:33:43+00:00 |
 | DAQ version      | 1.0.1 |
 | Attempt number   | 1 |
 
@@ -54,7 +54,7 @@ Overall device result FAIL
 
 |Expectation|pass|fail|skip|info|gone|
 |---|---|---|---|---|---|
-|Required|1|1|0|0|0|
+|Required|1|0|1|0|0|
 |Recommended|1|0|0|0|0|
 |Other|2|3|13|1|2|
 
@@ -70,7 +70,7 @@ Overall device result FAIL
 |skip|connection.port_duplex|Other|Other|No local IP|
 |skip|connection.port_link|Other|Other|No local IP|
 |skip|connection.port_speed|Other|Other|No local IP|
-|fail|network.brute|Security|Required||
+|skip|network.brute|Security|Required||
 |fail|network.ntp.support|Other|Other||
 |skip|poe.negotiation|Other|Other|No local IP|
 |skip|poe.power|Other|Other|No local IP|
@@ -90,15 +90,14 @@ Overall device result FAIL
 
 ```
 Baseline ping test report
-%% 69 packets captured.
+%% 64 packets captured.
 RESULT skip base.switch.ping
-RESULT pass base.target.ping target %% 10.20.28.164
+RESULT pass base.target.ping target %% 10.20.26.164
 ```
 
 ## Module nmap
 
 ```
-Allowing 10000 open tcp snet-sensor-mgmt
 No invalid ports found.
 RESULT pass security.ports.nmap
 ```
@@ -106,10 +105,8 @@ RESULT pass security.ports.nmap
 ## Module brute
 
 ```
-Username:manager
-Password:friend
-Login success!
-RESULT fail network.brute
+Target port 10000 not open.
+RESULT skip network.brute
 ```
 
 ## Module discover
@@ -231,16 +228,16 @@ connection.dhcp_long
 --------------------
 Device sends ARP request on DHCP lease expiry.
 --------------------
-%% 11:34:59.302582 ARP, Request who-has daq-faux-1 tell 10.0.0.5, length 28
-%% 11:34:59.302797 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
-%% 11:35:47.174991 ARP, Request who-has daq-faux-1 tell 10.0.0.5, length 28
-%% 11:35:47.175073 ARP, Request who-has 10.0.0.5 tell daq-faux-1, length 28
-%% 11:35:47.175082 ARP, Reply 10.0.0.5 is-at 4e:fc:27:e2:aa:20 (oui Unknown), length 28
-%% 11:35:47.175729 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
-%% 11:39:11.974982 ARP, Request who-has daq-faux-1 tell 10.0.0.5, length 28
-%% 11:39:11.975118 ARP, Request who-has 10.0.0.5 tell daq-faux-1, length 28
-%% 11:39:11.975132 ARP, Reply 10.0.0.5 is-at 4e:fc:27:e2:aa:20 (oui Unknown), length 28
-%% 11:39:11.975504 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 16:22:23.344533 ARP, Request who-has daq-faux-1 tell 10.0.0.5, length 28
+%% 16:22:23.344938 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 16:23:15.569490 ARP, Request who-has daq-faux-1 tell 10.0.0.5, length 28
+%% 16:23:15.570972 ARP, Request who-has 10.0.0.5 tell daq-faux-1, length 28
+%% 16:23:15.571004 ARP, Reply 10.0.0.5 is-at ba:4e:a9:da:36:8d (oui Unknown), length 28
+%% 16:23:15.572013 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
+%% 16:26:56.241725 ARP, Request who-has daq-faux-1 tell 10.0.0.5, length 28
+%% 16:26:56.241916 ARP, Request who-has 10.0.0.5 tell daq-faux-1, length 28
+%% 16:26:56.241936 ARP, Reply 10.0.0.5 is-at ba:4e:a9:da:36:8d (oui Unknown), length 28
+%% 16:26:56.242035 ARP, Reply daq-faux-1 is-at 9a:02:57:1e:8f:01 (oui Unknown), length 28
 %% packets_count=11
 RESULT pass connection.dhcp_long ARP packets received.
 
@@ -249,16 +246,16 @@ connection.min_send
 --------------------
 Device sends data at a frequency of less than 5 minutes.
 --------------------
-%% 11:34:59.302797 ARP, Reply 10.20.28.164 is-at 9a:02:57:1e:8f:01, length 28
-%% 11:35:04.262545 IP 10.20.28.164.41755 > 224.1.1.1.47808: UDP, length 32
-%% 11:35:04.272438 IP 10.20.28.164.35514 > 10.255.255.255.47808: UDP, length 32
-%% 11:35:14.271831 IP 10.20.28.164.58132 > 224.1.1.1.47808: UDP, length 32
-%% 11:35:14.282693 IP 10.20.28.164.49656 > 10.255.255.255.47808: UDP, length 32
-%% 11:35:24.273896 IP 10.20.28.164.55710 > 224.1.1.1.47808: UDP, length 32
-%% 11:35:24.291605 IP 10.20.28.164.32946 > 10.255.255.255.47808: UDP, length 32
-%% 11:35:34.275039 IP 10.20.28.164.39452 > 224.1.1.1.47808: UDP, length 32
-%% 11:35:34.294207 IP 10.20.28.164.43395 > 10.255.255.255.47808: UDP, length 32
-%% 11:35:41.978317 IP 10.20.28.164.68 > 10.0.0.5.67: BOOTP/DHCP, Request from 9a:02:57:1e:8f:01, length 300
+%% 16:22:23.344938 ARP, Reply 10.20.26.164 is-at 9a:02:57:1e:8f:01, length 28
+%% 16:22:28.377627 IP 10.20.26.164.33162 > 224.1.1.1.47808: UDP, length 32
+%% 16:22:28.377820 IP 10.20.26.164.50485 > 10.255.255.255.47808: UDP, length 32
+%% 16:22:38.387605 IP 10.20.26.164.33229 > 224.1.1.1.47808: UDP, length 32
+%% 16:22:38.387796 IP 10.20.26.164.42034 > 10.255.255.255.47808: UDP, length 32
+%% 16:22:48.391106 IP 10.20.26.164.44282 > 224.1.1.1.47808: UDP, length 32
+%% 16:22:48.394642 IP 10.20.26.164.55779 > 10.255.255.255.47808: UDP, length 32
+%% 16:22:58.410072 IP 10.20.26.164.46684 > 10.255.255.255.47808: UDP, length 32
+%% 16:22:58.410332 IP 10.20.26.164.47910 > 224.1.1.1.47808: UDP, length 32
+%% 16:23:08.415141 IP 10.20.26.164.33908 > 224.1.1.1.47808: UDP, length 32
 %% packets_count=11
 RESULT pass connection.min_send ARP packets received. Packets received.
 
@@ -271,7 +268,7 @@ RESULT info communication.type Broadcast packets received. Multicast packets rec
 --------------------
 protocol.app_min_send
 --------------------
-Device sends apllication packets at a frequency of less than 5 minutes.
+Device sends application packets at a frequency of less than 5 minutes.
 --------------------
 RESULT fail protocol.app_min_send 
 --------------------
