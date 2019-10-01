@@ -21,7 +21,7 @@ result = 'fail'
 dash_break_line = '--------------------\n'
 description_min_send = 'Device sends data at a frequency of less than 5 minutes.'
 description_dhcp_long = 'Device sends ARP request on DHCP lease expiry.'
-description_app_min_send = 'Device sends apllication packets at a frequency of less than 5 minutes.'
+description_app_min_send = 'Device sends application packets at a frequency of less than 5 minutes.'
 description_communication_type = 'Device sends unicast, multicast or broadcast packets.'
 description_ntp_support = 'Device sends NTP request packets.'
 

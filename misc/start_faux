@@ -160,6 +160,7 @@ conf_file= $conf_file
 EOF
 
 if [ -n "${options[destroy_network]}" ]; then
+    echo Destroying network.
     #ifconfig faux-eth0 down
 fi
 
