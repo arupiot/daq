@@ -144,13 +144,10 @@ if [ -n "${options[tls]}" ]; then
     echo Generating tls certs.
     python tlsfaux/generate_certs.py
     echo Starting tls server on port 443 https.
-  #  python tlsfaux/server.py certs &
     mv /root/nginx/nginxpass.conf /etc/nginx/nginx.conf
 elif [ -n "${options[expiredtls]}" ]; then
     echo Starting expired tls server on port 443 https.
-  #  python tlsfaux/server.py expcerts &
     mv /root/nginx/nginxfail.conf /etc/nginx/nginx.conf
-  #  COPY /etc/nginxconf/nginxfail.conf /etc/nginx/nginx.conf
 fi
 
 service nginx start
