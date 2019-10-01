@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.net.*;
 import java.text.DecimalFormat;
@@ -8,18 +7,18 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Main {
-    static final double SECONDS_FROM_FIRST_JANUARY_1990 = 2208988800.0;
+    static final double SECONDS_FROM_01_01_1900_TO_01_01_1970 = 2208988800.0;
     static String serverName = "time.google.com";
     static int PORT = 123;
-    static int timer = 3;
+    static int timerPeriod = 10;
 
     public static void main(String[] args) {
         if (args.length < 2) {
-            throw new IllegalArgumentException("Usage: server_name port timer");
+            throw new IllegalArgumentException("Usage: server_name port timerPeriod");
         }
         serverName = args[0];
         PORT = Integer.parseInt(args[1]);
-        timer = Integer.parseInt(args[2]);
+        timerPeriod = Integer.parseInt(args[2]);
 
         Runnable senderRunnable = new Runnable() {
             @Override
@@ -32,20 +31,20 @@ public class Main {
             }
         };
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(senderRunnable, 0,3, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(senderRunnable, 0, timerPeriod, TimeUnit.SECONDS);
     }
 
     private static void sendRequest() throws IOException {
         // Send request
         DatagramSocket socket = new DatagramSocket();
         InetAddress address = InetAddress.getByName(serverName);
-        byte[] buf = new NtpMessage().toByteArray();
+        byte[] buf = new NtpMessage(SECONDS_FROM_01_01_1900_TO_01_01_1970).toByteArray();
         DatagramPacket packet =
                 new DatagramPacket(buf, buf.length, address, PORT);
 
         // Set the transmit timestamp *just* before sending the packet
         NtpMessage.encodeTimestamp(packet.getData(), 40,
-                (System.currentTimeMillis()/1000.0) + SECONDS_FROM_FIRST_JANUARY_1990);
+                (System.currentTimeMillis() / 1000.0) + SECONDS_FROM_01_01_1900_TO_01_01_1970);
         sendPacket(socket, packet, buf);
     }
 
@@ -59,7 +58,7 @@ public class Main {
 
         // Immediately record the incoming timestamp
         double destinationTimestamp =
-                (System.currentTimeMillis()/1000.0) + SECONDS_FROM_FIRST_JANUARY_1990;
+                (System.currentTimeMillis() / 1000.0) + SECONDS_FROM_01_01_1900_TO_01_01_1970;
 
         // Process response
         NtpMessage msg = new NtpMessage(packet.getData());
@@ -75,9 +74,8 @@ public class Main {
         System.out.println("Dest. timestamp:     " +
                 NtpMessage.timestampToString(destinationTimestamp));
         System.out.println("Round-trip delay: " +
-                new DecimalFormat("0.00").format(roundTripDelay*1000) + " ms");
+                new DecimalFormat("0.00").format(roundTripDelay * 1000) + " ms");
         System.out.println("Local clock offset: " +
-                new DecimalFormat("0.00").format(localClockOffset*1000) + " ms");
-//		socket.close();
+                new DecimalFormat("0.00").format(localClockOffset * 1000) + " ms");
     }
 }
