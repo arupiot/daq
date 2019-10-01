@@ -73,7 +73,7 @@ Overall device result FAIL
 |skip|poe.support|Other|Other|No local IP|
 |skip|protocol.bacnet.pic|Other|Other|Bacnet device not found.|
 |skip|protocol.bacnet.version|Other|Other|Bacnet device not found.|
-|skip|security.firmware|Other|Other|Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered|
+|skip|security.firmware|Other|Other|Could not retrieve a firmware version with nmap.|
 |pass|security.ports.nmap|Security|Recommended||
 |skip|security.tls.v3|Other|Other||
 |skip|security.x509|Other|Other||
@@ -118,9 +118,9 @@ Automatic bacnet firmware scan using nmap
 PORT      STATE  SERVICE
 47808/udp closed bacnet
 MAC Address: 9A:02:57:1E:8F:01 (Unknown)
+Firmware test complete
 --------------------
-RESULT skip security.firmware Could not retrieve a firmware version with nmap. Bacnet port could be closed or filtered
-
+RESULT skip security.firmware Could not retrieve a firmware version with nmap.
 ```
 
 ## Module switch
