@@ -96,7 +96,7 @@ fi
 
 bac0_port=47808
 multicast_group="224.1.1.1"
-duration_seconds=240
+duration_seconds=360
 
 if [ -n "${options[broadcast_client]}" ]; then
     echo Starting broatcast client.
@@ -148,6 +148,16 @@ if [ -f $conf_file ]; then
 else
     echo Runtime config $conf_file not found.
 fi
+
+cat <<EOF >> variables.debug
+bac0_port= $bac0_port
+multicast_group= $multicast_group
+duration_seconds= $duration_seconds
+local_ip= $local_ip
+broadcast_ip= $broadcast_ip
+intf_name= $intf_name
+conf_file= $conf_file
+EOF
 
 echo Blocking for all eternety.
 tail -f /dev/null
