@@ -28,9 +28,9 @@ RESULT skip security.firmware Could not retrieve a firmware version with nmap. B
 RESULT fail security.firmware version found: ?\xFF\xFF\x19,>u\x08\x00no Firmware version does not match
 RESULT pass security.firmware version found: ?\xFF\xFF\x19,>u\x08\x00no
 dhcp requests 2 1
-01: ['01:brute:1']
-02: ['02:discover:1', '02:nmap:1']
-03: []
+01: ['01:brute:1', '01:discover:2']
+02: ['02:discover:2', '02:nmap:1']
+03: ['03:discover:2']
 ctrl-br.flows
 ctrl-br.ofctl
 ext-ovs.flows
