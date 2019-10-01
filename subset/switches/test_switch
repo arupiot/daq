@@ -29,37 +29,37 @@ else
 
     write_out_result $REPORT \
                      "connection.port_link" \
-                     "$(jq '.["connection.port_link"].desc' $MANIFEST)" \
+                     "$(jq -r '.["connection.port_link"].desc' $MANIFEST)" \
                      "$SKIP_REASON" \
                      "RESULT $RESULT connection.port_link $SUMMARY"
 
     write_out_result $REPORT \
                      "connection.port_speed" \
-                     "$(jq '.["connection.port_speed"].desc' $MANIFEST)" \
+                     "$(jq -r '.["connection.port_speed"].desc' $MANIFEST)" \
                      "$SKIP_REASON" \
                      "RESULT $RESULT connection.port_speed $SUMMARY"
 
     write_out_result $REPORT \
                      "connection.port_duplex" \
-                     "$(jq '.["connection.port_duplex"].desc' $MANIFEST)" \
+                     "$(jq -r '.["connection.port_duplex"].desc' $MANIFEST)" \
                      "$SKIP_REASON" \
                      "RESULT $RESULT connection.port_duplex $SUMMARY"
 
     write_out_result $REPORT \
                      "poe.power" \
-                     "$(jq '.["poe.power"].desc' $MANIFEST)" \
+                     "$(jq -r '.["poe.power"].desc' $MANIFEST)" \
                      "$SKIP_REASON" \
                      "RESULT $RESULT poe.power $SUMMARY"
 
     write_out_result $REPORT \
                      "poe.negotiation" \
-                     "$(jq '.["poe.negotiation"].desc' $MANIFEST)" \
+                     "$(jq -r '.["poe.negotiation"].desc' $MANIFEST)" \
                      "$SKIP_REASON" \
                      "RESULT $RESULT poe.negotiation $SUMMARY"
 
     write_out_result $REPORT \
                      "poe.support" \
-                     "$(jq '.["poe.support"].desc' $MANIFEST)" \
+                     "$(jq -r '.["poe.support"].desc' $MANIFEST)" \
                      "$SKIP_REASON" \
                      "RESULT $RESULT poe.support $SUMMARY"
 
