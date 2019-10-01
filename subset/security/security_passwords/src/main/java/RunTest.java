@@ -12,34 +12,32 @@ public class RunTest {
         this.command = command;
     }
 
-    public void runCommand(String command){
+    public void runCommand(String command) {
         try {
             Process process = Runtime.getRuntime().exec(command);
             BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
-            while((line = input.readLine()) != null){
+            while ((line = input.readLine()) != null) {
                 System.out.println(line);
-                if (validateLine(line)){
-                   foundCredentials = true;
+                if (validateLine(line)) {
+                    foundCredentials = true;
                 }
             }
-            if(foundCredentials){
+            if (foundCredentials) {
                 reportHandler.addText("RESULT fail security.passwords Default password has not been changed");
                 reportHandler.writeReport();
-            }
-            else{
+            } else {
                 reportHandler.addText("RESULT pass security.passwords Default passwords have been changed");
                 reportHandler.writeReport();
             }
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
 
-    public boolean validateLine(String line){
-      return line.contains("Discovered credentials");
+    public boolean validateLine(String line) {
+        return line.contains("Discovered credentials");
     }
 }

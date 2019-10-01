@@ -5,7 +5,7 @@ import com.jcraft.jsch.Session;
 
 import java.util.Properties;
 
-public class RunSshTest implements Runnable{
+public class RunSshTest implements Runnable {
     ReportHandler reportHandler;
     Session session;
     Channel channel;
@@ -19,7 +19,7 @@ public class RunSshTest implements Runnable{
     int usernameIndex = 0;
     int attempts = -1;
 
-    public RunSshTest(String[] usernames, String[] passwords, String hostAddress, String port, ReportHandler reportHandler){
+    public RunSshTest(String[] usernames, String[] passwords, String hostAddress, String port, ReportHandler reportHandler) {
         this.usernames = usernames;
         this.passwords = passwords;
         this.hostAddress = hostAddress;
@@ -27,36 +27,33 @@ public class RunSshTest implements Runnable{
         this.reportHandler = reportHandler;
     }
 
-    public void StartTest(){
-        while(!testFinished){
-            if(passwordIndex == passwords.length){
+    public void StartTest() {
+        while (!testFinished) {
+            if (passwordIndex == passwords.length) {
                 usernameIndex++;
                 passwordIndex = 0;
             }
-            if(usernameIndex > usernames.length -1){
+            if (usernameIndex > usernames.length - 1) {
                 testFinished = true;
                 reportHandler.addText("RESULT pass security.passwords Default passwords have been changed");
-            }
-            else{
+            } else {
                 attempts++;
-                try{
+                try {
                     session = jsch.getSession(usernames[usernameIndex], hostAddress, port);
                     session.setPassword(passwords[passwordIndex]);
-                    try{
+                    try {
                         Properties config = new Properties();
-                        config.put("StrictHostKeyChecking","no");
+                        config.put("StrictHostKeyChecking", "no");
                         session.setConfig(config);
                         session.connect();
                         reportHandler.addText("RESULT fail security.passwords Default passwords have not been changed");
                         testFinished = true;
-                    }
-                    catch (JSchException e){
-                        if(e.toString().contains("Connection refused")){
+                    } catch (JSchException e) {
+                        if (e.toString().contains("Connection refused")) {
                             reportHandler.addText("RESULT skip security.passwords SSH is not enabled on selected device");
                             testFinished = true;
                             break;
-                        }
-                        else{
+                        } else {
                             passwordIndex++;
                         }
                     }

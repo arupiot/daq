@@ -9,25 +9,23 @@ public class ReportHandler {
     private String filePath = "reports/report.txt";
     File reportFile;
 
-    public ReportHandler(String protocol){
+    public ReportHandler(String protocol) {
         this.protocol = protocol;
-	this.filePath = "reports/" + protocol + "_report.txt";
-        //addText("Protocol: " + protocol);
+        this.filePath = "reports/" + protocol + "_report.txt";
     }
 
-    public void addText(String text){
+    public void addText(String text) {
         report += text + '\n';
     }
 
-    public void writeReport(){
-	reportFile = new File(filePath);
-        try{
+    public void writeReport() {
+        reportFile = new File(filePath);
+        try {
             reportFile.getParentFile().mkdirs();
-            try(BufferedWriter writer = new BufferedWriter(new FileWriter(reportFile))){
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(reportFile))) {
                 writer.write(report);
             }
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             System.out.println("Unable to write report");
             System.out.println(e);
         }

@@ -16,19 +16,19 @@ public class SetupTest {
     String port;
     String macAddress;
     String domain;
-    private static final int minimumMACAddressLength   = 5;
+    private static final int minimumMACAddressLength = 5;
     private static final int addressStartPosition = 0;
     private static final int addressEndPosition = 6;
     private static final int manufacturerNamePosition = 7;
-    Map<String,String> macDevices = new HashMap<String, String>();
-    private  InputStream jsonStream = this.getClass().getResourceAsStream("/defaultPasswords.json");
+    Map<String, String> macDevices = new HashMap<String, String>();
+    private InputStream jsonStream = this.getClass().getResourceAsStream("/defaultPasswords.json");
     ReportHandler reportHandler;
     String[] usernames;
     String[] passwords;
     Gson gsonController = new Gson();
 
-    public void readMacList(){
-        try{
+    public void readMacList() {
+        try {
             InputStream inputStream = this.getClass().getResourceAsStream("/macList.txt");
             StringBuilder resultStringBuilder = new StringBuilder();
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
@@ -46,47 +46,44 @@ public class SetupTest {
                     }
                 }
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void getMacAddress(){
+    private void getMacAddress() {
         String formattedMac;
 
         System.out.println("getting mac");
-        try{
-            macAddress = macAddress.replace(":","");
-            formattedMac = macAddress.substring(addressStartPosition,addressEndPosition).toUpperCase();
+        try {
+            macAddress = macAddress.replace(":", "");
+            formattedMac = macAddress.substring(addressStartPosition, addressEndPosition).toUpperCase();
             System.out.println("mac retireved");
             getJsonFile(formattedMac);
-        }
-        catch(Exception e){
-           reportHandler.addText("RESULT skip security.passwords Device does not have a valid mac address");
-           reportHandler.writeReport();
+        } catch (Exception e) {
+            reportHandler.addText("RESULT skip security.passwords Device does not have a valid mac address");
+            reportHandler.writeReport();
         }
     }
 
-    public void getJsonFile(String macAddress){
+    public void getJsonFile(String macAddress) {
         JsonObject jsonFileContents = gsonController.fromJson(new InputStreamReader(jsonStream), JsonObject.class);
         JsonObject manufacturer = jsonFileContents.getAsJsonObject(macAddress);
         String jsonUsernames = manufacturer.get("Usernames").getAsString();
         String jsonPasswords = manufacturer.get("Passwords").getAsString();
         usernames = jsonUsernames.split(",");
         passwords = jsonPasswords.split(",");
-        if(protocol.equals("ssh")){
-            RunSshTest runSshTest = new RunSshTest(usernames,passwords,hostAddress,port,reportHandler);
+        if (protocol.equals("ssh")) {
+            RunSshTest runSshTest = new RunSshTest(usernames, passwords, hostAddress, port, reportHandler);
             Thread sshThread = new Thread(runSshTest);
             sshThread.start();
-        }
-        else{
-          createConsoleCommand(usernames,passwords);
+        } else {
+            createConsoleCommand(usernames, passwords);
         }
 
     }
 
-    public SetupTest(String protocol, String hostAddress, String port, String macAddress, String domain){
+    public SetupTest(String protocol, String hostAddress, String port, String macAddress, String domain) {
         this.protocol = protocol;
         this.hostAddress = hostAddress;
         this.port = port;
@@ -101,7 +98,7 @@ public class SetupTest {
         getMacAddress();
     }
 
-    private void createConsoleCommand(String[] usernames, String[] passwords){
+    private void createConsoleCommand(String[] usernames, String[] passwords) {
         System.out.println("writing command");
         ArrayList<String> usernamesList = new ArrayList<>(Arrays.asList(usernames));
         ArrayList<String> passwordsList = new ArrayList<>(Arrays.asList(passwords));
@@ -109,12 +106,12 @@ public class SetupTest {
         command = "ncrack ";
 
 
-        if(protocol.equals("https") || protocol.equals("http")){
-            command +=  domain + " ";
+        if (protocol.equals("https") || protocol.equals("http")) {
+            command += domain + " ";
         }
 
         command += protocol + "://";
-        command += hostAddress +":";
+        command += hostAddress + ":";
         command += port + " ";
         command += "--user ";
 
@@ -122,26 +119,24 @@ public class SetupTest {
 
         System.out.println("Num of usernames= " + usernamesList.size());
         System.out.println("Num of passwords= " + passwordsList.size());
-        for(String username: usernamesList){
-            if(usernamesList.indexOf(username)!= (usernamesList.size() -1)){
+        for (String username : usernamesList) {
+            if (usernamesList.indexOf(username) != (usernamesList.size() - 1)) {
                 str.append(username + ",");
-            }
-            else{
+            } else {
                 str.append(username + " --pass ");
             }
         }
-        for(String password: passwords){
-            if(passwordsList.indexOf(password)!= (passwordsList.size() -1)){
+        for (String password : passwords) {
+            if (passwordsList.indexOf(password) != (passwordsList.size() - 1)) {
                 str.append(password + ",");
-            }
-            else{
+            } else {
                 str.append(password + " ");
             }
         }
 
         String finalCommand = str.toString();
-        RunTest runnable = new RunTest(finalCommand,reportHandler);
-        System.out.println("command is : "+ finalCommand);
+        RunTest runnable = new RunTest(finalCommand, reportHandler);
+        System.out.println("command is : " + finalCommand);
         runnable.runCommand(finalCommand);
     }
 }
