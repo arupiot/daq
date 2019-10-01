@@ -11,7 +11,7 @@ RESULT skip protocol.bacnet.pic Bacnet device not found... Pics check cannot be 
 RESULT skip protocol.bacnet.version Bacnet device not found.
 RESULT skip protocol.bacnet.pic Bacnet device not found... Pics check cannot be performed.
 RESULT info protocol.bacnet.version Protocol version: 1
-RESULT skip protocol.bacnet.pic pics.csv not found in device_types/../aux/ directory 
+RESULT skip protocol.bacnet.pic pics.csv not found in device_types/../aux/ directory
 RESULT fail network.brute
 RESULT pass network.brute
 RESULT skip network.brute
@@ -36,6 +36,9 @@ RESULT fail security.passwords Default password has not been changed
 RESULT fail security.passwords Default password has not been changed
 RESULT fail security.passwords Default password has not been changed
 RESULT fail security.passwords Default passwords have not been changed
+RESULT skip security.firmware Could not retrieve a firmware version with nmap. Check bacnet port.
+RESULT fail security.firmware version found: ?\xFF\xFF\x19,>u\x08\x00no Firmware version does not match
+RESULT pass security.firmware version found: ?\xFF\xFF\x19,>u\x08\x00no
 dhcp requests 2 1
 01: ['01:brute:1', '01:nmap:1']
 02: ['02:nmap:1', '02:ping:1']
@@ -116,5 +119,4 @@ port-02 module_config modules
 }
 Redacted docs diff
 No report diff
- M misc/start_faux
 Done with tests

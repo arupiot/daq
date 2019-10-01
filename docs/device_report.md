@@ -68,15 +68,16 @@ Overall device result FAIL
 |skip|connection.port_link|Other|Other|No local IP|
 |skip|connection.port_speed|Other|Other|No local IP|
 |fail|network.brute|Security|Required||
-|skip|poe.negotiation|Other|Other|No local IP|
-|skip|poe.power|Other|Other|No local IP|
-|skip|poe.support|Other|Other|No local IP|
+|skip|poe.negotiation|Other|Other||
+|skip|poe.power|Other|Other||
+|skip|poe.support|Other|Other||
 |skip|protocol.bacnet.pic|Other|Other|Bacnet device not found... Pics check cannot be performed.|
 |skip|protocol.bacnet.version|Other|Other|Bacnet device not found.|
+|skip|security.firmware|Other|Other|Could not retrieve a firmware version with nmap.|
 |skip|security.passwords|Other|Other|Device does not have a valid mac address|
-|fail|security.ports.nmap|Security|Recommended||
-|pass|security.tls.v3|Other|Other||
-|pass|security.x509|Other|Other||
+|pass|security.ports.nmap|Security|Recommended||
+|skip|security.tls.v3|Other|Other||
+|skip|security.x509|Other|Other||
 |gone|unknown.fake.llama|Other|Other||
 |gone|unknown.fake.monkey|Other|Other||
 
@@ -108,6 +109,25 @@ Login success!
 RESULT fail network.brute
 ```
 
+<<<<<<< HEAD
+=======
+## Module discover
+
+```
+--------------------
+security.firmware
+--------------------
+Automatic bacnet firmware scan using nmap
+--------------------
+PORT      STATE  SERVICE
+47808/udp closed bacnet
+MAC Address: 9A:02:57:1E:8F:01 (Unknown)
+Firmware test complete
+--------------------
+RESULT skip security.firmware Could not retrieve a firmware version with nmap. Check bacnet port.
+```
+
+>>>>>>> master
 ## Module switch
 
 ```
@@ -284,4 +304,3 @@ RESULT skip cloud.udmi.pointset No device id
 ```
 
 ## Report complete
-
