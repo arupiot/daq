@@ -68,9 +68,9 @@ Overall device result FAIL
 |skip|connection.port_link|Other|Other|No local IP|
 |skip|connection.port_speed|Other|Other|No local IP|
 |fail|network.brute|Security|Required||
-|skip|poe.negotiation|Other|Other||
-|skip|poe.power|Other|Other||
-|skip|poe.support|Other|Other||
+|skip|poe.negotiation|Other|Other|No local IP|
+|skip|poe.power|Other|Other|No local IP|
+|skip|poe.support|Other|Other|No local IP|
 |skip|protocol.bacnet.pic|Other|Other|Bacnet device not found... Pics check cannot be performed.|
 |skip|protocol.bacnet.version|Other|Other|Bacnet device not found.|
 |skip|security.firmware|Other|Other|Could not retrieve a firmware version with nmap. Check bacnet port.|
