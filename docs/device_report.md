@@ -129,56 +129,56 @@ RESULT skip security.firmware Could not retrieve a firmware version with nmap. C
 --------------------
 connection.port_link
 --------------------
-description
+Connect the device to the network switch. Check the device and the switch for the green connection light & no errors
 --------------------
 LOCAL_IP not configured, assuming no network switch.
 --------------------
-RESULT skip connection.port_link No local IP
+RESULT skip connection.port_link No local IP has been set, check ext_loip in system.conf
 
 --------------------
 connection.port_speed
 --------------------
-description
+Verify the device auto-negotiates connection speed
 --------------------
 LOCAL_IP not configured, assuming no network switch.
 --------------------
-RESULT skip connection.port_speed No local IP
+RESULT skip connection.port_speed No local IP has been set, check ext_loip in system.conf
 
 --------------------
 connection.port_duplex
 --------------------
-description
+Verify the device supports full duplex
 --------------------
 LOCAL_IP not configured, assuming no network switch.
 --------------------
-RESULT skip connection.port_duplex No local IP
+RESULT skip connection.port_duplex No local IP has been set, check ext_loip in system.conf
 
 --------------------
 poe.power
 --------------------
-description
+Verify that the device draws less than the maximum power allocated by the port. This is 15.4W for 802.3af and 30W for 802.3at
 --------------------
 LOCAL_IP not configured, assuming no network switch.
 --------------------
-RESULT skip poe.power No local IP
+RESULT skip poe.power No local IP has been set, check ext_loip in system.conf
 
 --------------------
 poe.negotiation
 --------------------
-description
+Verify the device autonegotiates power requirements
 --------------------
 LOCAL_IP not configured, assuming no network switch.
 --------------------
-RESULT skip poe.negotiation No local IP
+RESULT skip poe.negotiation No local IP has been set, check ext_loip in system.conf
 
 --------------------
 poe.support
 --------------------
-description
+Verify if the device supports PoE
 --------------------
 LOCAL_IP not configured, assuming no network switch.
 --------------------
-RESULT skip poe.support No local IP
+RESULT skip poe.support No local IP has been set, check ext_loip in system.conf
 
 ```
 
