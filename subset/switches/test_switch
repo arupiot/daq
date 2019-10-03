@@ -1,11 +1,13 @@
 #!/bin/bash -e
 source reporting_utils
 REPORT=/tmp/report.txt
+LOCAL_REPORT=tmp/report.txt
 MANIFEST=./module_manifest.json
 
 # Setup for accessing control plane switch. If LOCAL_IP is defined, which
 # is the intended local address for this node on the control plane then
 # SWITCH_IP will be the IP address of the OpenFlow switch.
+
 if [ -n "$LOCAL_IP" ]; then
     echo Configuring network with local address $LOCAL_IP.
     ip addr add $LOCAL_IP dev `hostname`-eth0
@@ -13,7 +15,6 @@ if [ -n "$LOCAL_IP" ]; then
     ping -n -c 10 $SWITCH_IP
     POE_ENABLED=`jq -r .modules.switch.poe.enabled /config/device/module_config.json`
     java -jar switches/target/switchtest-0.0.1-jar-with-dependencies.jar $SWITCH_IP $SWITCH_PORT $POE_ENABLED
-    cp -r tmp/report.txt /tmp/report.txt
 
     # TODO: write a function that:
     # - Loops through each line of report.txt
@@ -21,11 +22,17 @@ if [ -n "$LOCAL_IP" ]; then
     # - gets the description from $MANIFEST
     # - uses write_out_result to generate the required report output
 
+    write_out_result $REPORT \
+                     "switch" \
+                     "more descriptions to follow..." \
+                     "$(grep -v "RESULT" $LOCAL_REPORT)" \
+                     "$(grep "RESULT" $LOCAL_REPORT)"
+
 else
 
     SKIP_REASON="LOCAL_IP not configured, assuming no network switch."
     RESULT="skip"
-    SUMMARY="No local IP has been set"
+    SUMMARY="No local IP has been set, check ext_loip in system.conf"
 
     write_out_result $REPORT \
                      "connection.port_link" \
