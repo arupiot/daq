@@ -2,6 +2,7 @@
 source reporting_utils
 REPORT=/tmp/report.txt
 RESULT_LINES=""
+MONOLITH_LOG=""
 LOCAL_REPORT=tmp/report.txt
 MANIFEST=./module_manifest.json
 
@@ -9,20 +10,23 @@ if [ -n "$TARGET_IP" ]; then
     echo Collecting TLS cert from target address $TARGET_IP.
     java -jar tlstest/build/libs/tlstest.jar $TARGET_IP
     RESULT_LINES=$(grep "RESULT" $LOCAL_REPORT)
+    MONOLITH_LOG=$(grep -v "RESULT" $LOCAL_REPORT)
+
 
     write_out_result $REPORT \
                      "tls" \
                      "more descriptions to follow..." \
-                     "$(grep -v "RESULT" $LOCAL_REPORT)" \
+                     ""$MONOLITH_LOG \
                      "$RESULT_LINES"
 
 else
-    echo TARGET_IP not configured TLS test failed
+    MONOLITH_LOG="TARGET_IP not configured TLS test failed"
+    echo $MONOLITH_LOG
 
     write_out_result $REPORT \
                      "tls" \
                      "more descriptions to follow..." \
-                     "TARGET_IP not configured TLS test failed" \
+                     "$MONOLITH_LOG" \
                      "$(grep "RESULT" $LOCAL_REPORT)"
 
 fi
