@@ -1,19 +1,20 @@
 #!/bin/bash -e
 source reporting_utils
 REPORT=/tmp/report.txt
+RESULT_LINES=""
 LOCAL_REPORT=tmp/report.txt
 MANIFEST=./module_manifest.json
 
 if [ -n "$TARGET_IP" ]; then
     echo Collecting TLS cert from target address $TARGET_IP.
     java -jar tlstest/build/libs/tlstest.jar $TARGET_IP
-    # cp tmp/report.txt /tmp/report.txt
+    RESULT_LINES=$(grep "RESULT" $LOCAL_REPORT)
 
     write_out_result $REPORT \
                      "tls" \
                      "more descriptions to follow..." \
                      "$(grep -v "RESULT" $LOCAL_REPORT)" \
-                     "$(grep "RESULT" $LOCAL_REPORT)"
+                     "$RESULT_LINES"
 
 else
     echo TARGET_IP not configured TLS test failed
@@ -26,4 +27,6 @@ else
 
 fi
 
+result_lines=( "$RESULT_LINES" )
 
+[ $(check_for_fails_in "${result_lines[@]}") == false ]
