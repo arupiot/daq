@@ -4,7 +4,7 @@
 _______REPORT_DIVIDER="--------------------"
 
 # write_out_result
-# All inputs are variables (not files)
+# All inputs EXCEPT $REPORT are variables (not files)
 # Intended to write out output for one test
 # to the .md report
 
@@ -30,6 +30,7 @@ END
 
 # check_for_fails_in
 # Input is an array of variables (not files!) containing text
+# All inputs EXCEPT $REPORT are variables (not files)
 # Intended for use by test running bash scripts to return a non-zero
 # exit code if any test in a module fails
 # This way, the firebase dashboard shows 'red' if there has been a failure
