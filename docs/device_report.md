@@ -195,7 +195,7 @@ RESULT fail connection.mac_oui
 --------------------
 protocol.bacnet.version
 --------------------
-Insitu Verify and record version of Bacnet used by the device
+Verify and record version of Bacnet used by the device
 --------------------
  Bacnet device not found.
 --------------------

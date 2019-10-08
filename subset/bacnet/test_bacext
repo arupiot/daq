@@ -45,7 +45,7 @@ PICS_RESULT_AND_SUMMARY=$(cat tmp/BacnetPICSTestReport.txt)
 
 write_out_result $REPORT \
                  "protocol.bacnet.version" \
-                 "Insitu Verify and record version of Bacnet used by the device" \
+                 "Verify and record version of Bacnet used by the device" \
                  "$VERSION_LOG" \
                  "$VERSION_RESULT_AND_SUMMARY"
 
