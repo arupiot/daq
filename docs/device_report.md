@@ -114,9 +114,16 @@ RESULT pass base.target.ping target reached %% 10.20.70.164
 ## Module nmap
 
 ```
+--------------------
+security.ports.nmap
+--------------------
+Automatic TCP/UDP port scan using nmap
+--------------------
 Allowing 10000 open tcp snet-sensor-mgmt
 No invalid ports found.
-RESULT pass security.ports.nmap
+--------------------
+RESULT pass security.ports.nmap nmap ran and found things
+
 ```
 
 ## Module brute
