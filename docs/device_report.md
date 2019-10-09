@@ -122,7 +122,7 @@ Automatic TCP/UDP port scan using nmap
 Allowing 10000 open tcp snet-sensor-mgmt
 No invalid ports found.
 --------------------
-RESULT pass security.ports.nmap 
+RESULT pass security.ports.nmap
 
 ```
 
