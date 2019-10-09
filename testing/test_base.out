@@ -29,7 +29,7 @@ Overall device result PASS
 |Result|Test|Category|Expectation|Notes|
 |---|---|---|---|---|
 |skip|base.switch.ping|Other|Other||
-|pass|base.target.ping|Other|Other|target|
+|pass|base.target.ping|Connectivity|Required|target reached|
 |skip|network.brute|Other|Other||
 |pass|security.ports.nmap|Other|Other||
 
