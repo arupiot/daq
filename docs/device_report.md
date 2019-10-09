@@ -213,8 +213,16 @@ RESULT skip poe.support No local IP has been set, check ext_loip in system.conf
 ## Module macoui
 
 ```
+--------------------
+connection.mac_oui
+--------------------
+Check Physical device address OUI against IEEE registration and verify it is registered with the correct manufacturer
+--------------------
+Using the host hardware address 9a:02:57:1e:8f:01
 Mac OUI Test
-RESULT fail connection.mac_oui
+--------------------
+RESULT fail connection.mac_oui Manufacturer prefix not found!
+
 ```
 
 ## Module bacext
