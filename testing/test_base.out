@@ -28,8 +28,8 @@ Overall device result PASS
 
 |Result|Test|Category|Expectation|Notes|
 |---|---|---|---|---|
-|skip|base.switch.ping|Other|Other||
-|pass|base.target.ping|Other|Other|target|
+|skip|base.switch.ping|Other|Other|No local IP has been set, check ext_loip in system.conf|
+|pass|base.target.ping|Connectivity|Required|target reached|
 |skip|network.brute|Other|Other||
 |pass|security.ports.nmap|Other|Other||
 
@@ -37,17 +37,42 @@ Overall device result PASS
 ## Module ping
 
 ```
+LOCAL_IP not configured, assuming no network switch
+
 Baseline ping test report
 
-RESULT skip base.switch.ping
-RESULT pass base.target.ping target
+--------------------
+base.switch.ping
+--------------------
+Attempt to ping the OpenFlow compatible switch configured in system.conf
+--------------------
+See log above
+--------------------
+RESULT skip base.switch.ping No local IP has been set, check ext_loip in system.conf
+
+--------------------
+base.target.ping
+--------------------
+Attempt to ping the Device Under Test
+--------------------
+See log above
+--------------------
+RESULT pass base.target.ping target reached
 ```
 
 ## Module nmap
 
 ```
+--------------------
+security.ports.nmap
+--------------------
+Automatic TCP/UDP port scan using nmap
+--------------------
+Allowing 10000 open tcp snet-sensor-mgmt
 No invalid ports found.
+--------------------
 RESULT pass security.ports.nmap
+
 ```
 
 ## Module brute
