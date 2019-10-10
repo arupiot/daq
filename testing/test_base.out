@@ -29,7 +29,7 @@ Overall device result PASS
 |Result|Test|Category|Expectation|Notes|
 |---|---|---|---|---|
 |skip|base.switch.ping|Other|Other|No local IP has been set, check ext_loip in system.conf|
-|pass|base.target.ping|Connectivity|Required|target reached|
+|pass|base.target.ping|Other|Required|target reached|
 |skip|network.brute|Other|Other||
 |pass|security.ports.nmap|Other|Other||
 
@@ -87,7 +87,7 @@ RESULT skip network.brute
 Open port tests
 01: ['01:nmap:1']
 |fail|security.ports.nmap|Other|Other||
-RESULT fail security.ports.nmap
+RESULT fail security.ports.nmap Some disallowed ports are open
 01: []
 |pass|security.ports.nmap|Other|Other||
 RESULT pass security.ports.nmap
