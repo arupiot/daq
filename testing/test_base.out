@@ -37,9 +37,12 @@ Overall device result PASS
 ## Module ping
 
 ```
+--------------------
+Baseline ping test report
+
 LOCAL_IP not configured, assuming no network switch
 
-Baseline ping test report
+Done with basic connectivity tests
 
 --------------------
 base.switch.ping
@@ -58,6 +61,7 @@ Attempt to ping the Device Under Test
 See log above
 --------------------
 RESULT pass base.target.ping target reached
+
 ```
 
 ## Module nmap
