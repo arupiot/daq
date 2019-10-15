@@ -72,7 +72,6 @@ security.ports.nmap
 --------------------
 Automatic TCP/UDP port scan using nmap
 --------------------
-Allowing 10000 open tcp snet-sensor-mgm MARKED
 No invalid ports found.
 --------------------
 RESULT pass security.ports.nmap
