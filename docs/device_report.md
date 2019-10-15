@@ -60,10 +60,10 @@ Overall device result FAIL
 
 |Result|Test|Category|Expectation|Notes|
 |---|---|---|---|---|
-|skip|base.switch.ping|Other|Other||
+|skip|base.switch.ping|Other|Other|No local IP has been set, check ext_loip in system.conf|
 |pass|base.target.ping|Connectivity|Required|target reached|
 |skip|cloud.udmi.pointset|Other|Other|No device id|
-|fail|connection.mac_oui|Other|Other||
+|fail|connection.mac_oui|Other|Other|Manufacturer prefix not found!|
 |skip|connection.port_duplex|Other|Other|No local IP has been set, check ext_loip in system.conf|
 |skip|connection.port_link|Other|Other|No local IP has been set, check ext_loip in system.conf|
 |skip|connection.port_speed|Other|Other|No local IP has been set, check ext_loip in system.conf|
