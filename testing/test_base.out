@@ -81,8 +81,15 @@ RESULT pass security.ports.nmap
 ## Module brute
 
 ```
+--------------------
+network.brute
+--------------------
+Educational test - not to be included in a production environment!
+--------------------
 Target port 10000 not open.
-RESULT skip network.brute
+--------------------
+RESULT skip network.brute Port 10000 is not open
+
 ```
 
 ## Report complete
