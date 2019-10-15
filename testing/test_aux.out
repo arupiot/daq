@@ -12,11 +12,11 @@ RESULT info protocol.bacnet.version Protocol version: 1
 RESULT fail protocol.bacnet.pic The device does not match the PICS
 RESULT info protocol.bacnet.version Protocol version: 1
 RESULT pass protocol.bacnet.pic
-RESULT fail network.brute
+RESULT fail network.brute Change the default password on the DUT
 RESULT pass network.brute
-RESULT skip network.brute
-RESULT fail connection.mac_oui
-RESULT fail connection.mac_oui
+RESULT skip network.brute Port 10000 is not open
+RESULT fail connection.mac_oui Manufacturer prefix not found!
+RESULT fail connection.mac_oui Manufacturer prefix not found!
 RESULT pass connection.mac_oui
 RESULT skip security.tls.v3
 RESULT skip security.x509
@@ -28,8 +28,8 @@ RESULT skip security.firmware Could not retrieve a firmware version with nmap. C
 RESULT fail security.firmware version found: ?\xFF\xFF\x19,>u\x08\x00no Firmware version does not match
 RESULT pass security.firmware version found: ?\xFF\xFF\x19,>u\x08\x00no
 dhcp requests 2 1
-01: ['01:brute:1']
-02: ['02:bacext:1', '02:discover:1', '02:nmap:1', '02:tls:1']
+01: ['01:brute:1', '01:macoui:1']
+02: ['02:bacext:1', '02:discover:1', '02:macoui:1', '02:nmap:1', '02:tls:1']
 03: ['03:udmi:1']
 ctrl-br.flows
 ctrl-br.ofctl

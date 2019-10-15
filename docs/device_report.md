@@ -67,7 +67,7 @@ Overall device result FAIL
 |skip|connection.port_duplex|Other|Other|No local IP has been set, check ext_loip in system.conf|
 |skip|connection.port_link|Other|Other|No local IP has been set, check ext_loip in system.conf|
 |skip|connection.port_speed|Other|Other|No local IP has been set, check ext_loip in system.conf|
-|fail|network.brute|Security|Required||
+|fail|network.brute|Security|Required|Change the default password on the DUT|
 |skip|poe.negotiation|Other|Other|No local IP has been set, check ext_loip in system.conf|
 |skip|poe.power|Other|Other|No local IP has been set, check ext_loip in system.conf|
 |skip|poe.support|Other|Other|No local IP has been set, check ext_loip in system.conf|
@@ -129,10 +129,17 @@ RESULT pass security.ports.nmap
 ## Module brute
 
 ```
+--------------------
+network.brute
+--------------------
+Educational test - not to be included in a production environment!
+--------------------
 Username:manager
 Password:friend
 Login success!
-RESULT fail network.brute
+--------------------
+RESULT fail network.brute Change the default password on the DUT
+
 ```
 
 ## Module discover
