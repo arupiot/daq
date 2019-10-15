@@ -72,7 +72,7 @@ security.ports.nmap
 --------------------
 Automatic TCP/UDP port scan using nmap
 --------------------
-Allowing 10000 open tcp snet-sensor-mgmt
+Allowing 10000 open tcp snet-sensor-mgm MARKED
 No invalid ports found.
 --------------------
 RESULT pass security.ports.nmap
@@ -100,6 +100,7 @@ External switch tests
     dp_id: 1
     dp_id: 4886718345
 Switch test with port 2.
+RESULT pass base.target.ping target reached
 switch ping 2
 Mud profile tests
 result open 01: [] 02: [] 03: []
