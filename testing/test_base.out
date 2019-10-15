@@ -29,7 +29,7 @@ Overall device result PASS
 |Result|Test|Category|Expectation|Notes|
 |---|---|---|---|---|
 |skip|base.switch.ping|Other|Other|No local IP has been set, check ext_loip in system.conf|
-|pass|base.target.ping|Other|Required|target reached|
+|pass|base.target.ping|Other|Other|target reached|
 |skip|network.brute|Other|Other||
 |pass|security.ports.nmap|Other|Other||
 
@@ -37,9 +37,12 @@ Overall device result PASS
 ## Module ping
 
 ```
+--------------------
+Baseline ping test report
+
 LOCAL_IP not configured, assuming no network switch
 
-Baseline ping test report
+Done with basic connectivity tests
 
 --------------------
 base.switch.ping
@@ -58,6 +61,7 @@ Attempt to ping the Device Under Test
 See log above
 --------------------
 RESULT pass base.target.ping target reached
+
 ```
 
 ## Module nmap
@@ -68,7 +72,7 @@ security.ports.nmap
 --------------------
 Automatic TCP/UDP port scan using nmap
 --------------------
-Allowing 10000 open tcp snet-sensor-mgmt
+Allowing 10000 open tcp snet-sensor-mgm MARKED
 No invalid ports found.
 --------------------
 RESULT pass security.ports.nmap
@@ -86,7 +90,7 @@ RESULT skip network.brute
 
 Open port tests
 01: ['01:nmap:1']
-|fail|security.ports.nmap|Other|Other||
+|fail|security.ports.nmap|Other|Other|Some disallowed ports are open|
 RESULT fail security.ports.nmap Some disallowed ports are open
 01: []
 |pass|security.ports.nmap|Other|Other||
@@ -96,6 +100,7 @@ External switch tests
     dp_id: 1
     dp_id: 4886718345
 Switch test with port 2.
+RESULT pass base.target.ping target reached
 switch ping 2
 Mud profile tests
 result open 01: [] 02: [] 03: []
