@@ -87,12 +87,12 @@ cmd/run -b -s
 
 # Add just the RESULT lines from all aux tests (from all ports, 3 in this case) into a file
 # These ARE the auxiliary tests
-capture_aux_test_log bacext all
-capture_aux_test_log brute all
-capture_aux_test_log macoui all
-capture_aux_test_log tls all
-capture_aux_test_log password all
-capture_aux_test_log discover all
+capture_aux_test_results bacext all
+capture_aux_test_results brute all
+capture_aux_test_results macoui all
+capture_aux_test_results tls all
+capture_aux_test_results password all
+capture_aux_test_results discover all
 
 # Capture peripheral logs
 more inst/run-port-*/scans/dhcp_triggers.txt | cat
